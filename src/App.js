@@ -1,5 +1,5 @@
 import React from "react";
-import Store from "./components/Store";
+import Store from "./pages/Store";
 
 function App() {
   return <Store />;

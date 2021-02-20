@@ -1,14 +1,6 @@
-//react
-import React from "react";
-//components
-import Authors from "./Authors";
-import Categories from "./Categories";
-import Price from "./Price";
-import Publishers from "./Publishers";
-//styles
-import "./styles/style.css";
+import Lord from "../components/styles/images/book.jpg";
 
-const categories = [
+export const categories = [
   { value: "Бестселлеры" },
   { value: "Психология" },
   { value: "Искусство, дизайн и мода" },
@@ -23,10 +15,9 @@ const categories = [
   { value: "Гуманитарные и общественные науки" },
   { value: "Школьные учебники" },
   { value: "Журналы и газеты" },
-  { value: "Путешествия" },
 ];
 
-const publishers = [
+export const publishers = [
   { value: "Эксмо" },
   { value: "АСТ" },
   { value: "Азбука" },
@@ -45,7 +36,7 @@ const publishers = [
   { value: "Иностранка" },
 ];
 
-const authors = [
+export const authors = [
   { value: "Стивен Кинг" },
   { value: "Владимир Маяковский" },
   { value: "Карл Маркс" },
@@ -62,17 +53,16 @@ const authors = [
   { value: "Виктор Пелевин" },
   { value: "Александр Солженицин" },
   { value: "Александр Пушкин" },
+  { value: "Лев Толстой" },
 ];
 
-const LeftSidebar = () => {
-  return (
-    <div className='container sidebar--container'>
-      <Categories categories={categories} />
-      <Price />
-      <Publishers publishers={publishers} />
-      <Authors authors={authors} />
-    </div>
-  );
-};
-
-export default LeftSidebar;
+export const books = [
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
+];
