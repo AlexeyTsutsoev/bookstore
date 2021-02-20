@@ -1,10 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-const LoginContainer = styled.div`
+const RegButton = styled.button`
+  width: 40%;
+  height: 40px;
+  padding: 12px 0;
+
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  text-transform: uppercase;
+
+  background-color: #34547a;
+  border: 0;
+  border-radius: 0;
+
+  line-height: 1.1;
+
+  ${(props) =>
+    props.disabled
+      ? `
+          opacity: 0.5;
+        `
+      : `
+          opacity: 1;
+        `};
+`;
+
+const Title = styled.div`
+  color: rgba(0, 0, 0, 0.3);
+`;
+
+const RegContainer = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,39 +71,19 @@ const Input = styled.input`
   color: #333;
 `;
 
-const LoginButton = styled.button`
-  width: 40%;
-  height: 40px;
-  padding: 12px 30px;
-
-  cursor: pointer;
-
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
-  text-transform: uppercase;
-
-  background-color: #34547a;
-  border: 0;
-  border-radius: 0;
-
-  line-height: 1.1;
-
-  ${(props) =>
-    props.disabled
-      ? `
-          opacity: 0.5;
-        `
-      : `
-          opacity: 1;
-        `};
-`;
-
-const Login = () => {
+const Registration = () => {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nameDirty, setNameDirty] = useState(false);
+  const [numberDirty, setNumberDirty] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setpasswordDirty] = useState(false);
+  const [nameError, setNameError] = useState("Поле Имя не может быть пустым");
+  const [numberError, setNumberError] = useState(
+    "Поле номер телефона не может быть пустым"
+  );
   const [emailError, setEmailError] = useState(
     "Поле email не может быть пустым"
   );
@@ -82,16 +93,42 @@ const Login = () => {
   const [form, setForm] = useState(false);
 
   useEffect(() => {
-    if (emailError || passwordError) {
+    if (nameError || numberError || emailError || passwordError) {
       setForm(false);
     } else {
       setForm(true);
     }
-  }, [emailError, passwordError]);
+  }, [emailError, passwordError, nameError, numberError]);
 
-  const submitHandler = (event) => {
-    console.log(`email ${email}`);
-    console.log(`password ${password}`);
+  const blurHandler = (event) => {
+    switch (event.target.name) {
+      case "email":
+        setEmailDirty(true);
+        break;
+      case "password":
+        setpasswordDirty(true);
+        break;
+      case "name":
+        setNameDirty(true);
+        break;
+      case "number":
+        setNumberDirty(true);
+        break;
+    }
+  };
+
+  const nameHandler = (event) => {
+    setName(event.target.value);
+    if (event.target.value) {
+      setNameError("");
+    }
+  };
+
+  const numberHandler = (event) => {
+    setNumber(event.target.value);
+    if (event.target.value) {
+      setNumberError("");
+    }
   };
 
   const emailHandler = (event) => {
@@ -117,21 +154,35 @@ const Login = () => {
     }
   };
 
-  const blurHandler = (event) => {
-    switch (event.target.name) {
-      case "email":
-        setEmailDirty(true);
-        break;
-      case "password":
-        setpasswordDirty(true);
-        break;
-    }
+  const submitHandler = (event) => {
+    console.log(`имя ${name}`);
+    console.log(`номер ${number}`);
+    console.log(`email ${email}`);
+    console.log(`password ${password}`);
   };
 
   return (
-    <LoginContainer>
+    <RegContainer>
       <Form onSubmit={(event) => submitHandler(event)}>
         <FormContainer>
+          {nameDirty && <div style={{ color: "red" }}>{nameError}</div>}
+          <Input
+            onChange={(event) => nameHandler(event)}
+            value={name}
+            onBlur={(event) => blurHandler(event)}
+            name='name'
+            placeholder='Ваше Имя...'
+            type='text'
+          />
+          {numberDirty && <div style={{ color: "red" }}>{numberError}</div>}
+          <Input
+            onChange={(event) => numberHandler(event)}
+            value={number}
+            onBlur={(event) => blurHandler(event)}
+            name='number'
+            placeholder='Ваш номер телефона...'
+            type='text'
+          />
           {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
           <Input
             onChange={(event) => emailHandler(event)}
@@ -151,17 +202,17 @@ const Login = () => {
             name='password'
             type='password'
           />
-          <LoginButton disabled={!form} type='submit'>
-            Войти
-          </LoginButton>
+          <RegButton disabled={!form} type='submit'>
+            Зарегестрироваться
+          </RegButton>
         </FormContainer>
       </Form>
       <div>
-        Нет аккаунта? <NavLink to='/registration'>Зарегестриуйтесь</NavLink>
+        Есть аккаунт? <NavLink to='/login'>Авторизуйтесь</NavLink>
       </div>
       <NavLink to='/'>Возврат на главную страницу</NavLink>
-    </LoginContainer>
+    </RegContainer>
   );
 };
 
-export default Login;
+export default Registration;

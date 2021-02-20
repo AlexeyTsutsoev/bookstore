@@ -7,7 +7,7 @@ import FilterItem from "./FilterItem";
 import ShowAllButton from "./ShowAllButton";
 import styled from "styled-components";
 import SearchInput from "./SearchInput";
-import FilterTitle from "./FilterTitle";
+import Title from "./Title";
 
 /*Styles*/
 const FilterContainer = styled.div`
@@ -34,7 +34,7 @@ const Filter = ({ items, title }) => {
   const renderOnlyItem = () => {
     return (
       <FilterContainer>
-        <FilterTitle title={title} />
+        <Title title={title} />
         <div>
           {items.map((item, index) => {
             return <FilterItem key={index} value={item.value} />;
@@ -47,7 +47,7 @@ const Filter = ({ items, title }) => {
   const renderAll = () => {
     return (
       <FilterContainer>
-        <FilterTitle title={title} />
+        <Title title={title} />
         {showInput()}
         <div>
           {lockItem().map((item, index) => {

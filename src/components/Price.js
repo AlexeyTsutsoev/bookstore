@@ -4,7 +4,7 @@ import styled from "styled-components";
 //styles
 import "./styles/style.css";
 //components
-import FilterTitle from "./FilterTitle";
+import Title from "./Title";
 
 import { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -39,7 +39,7 @@ const Price = ({ title }) => {
 
   return (
     <div>
-      <FilterTitle title={title} />
+      <Title title={title} />
       <PriceContent>
         <FilterPrice>
           <div>от</div>
