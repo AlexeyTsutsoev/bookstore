@@ -10,7 +10,7 @@ const RegButton = styled.button`
   cursor: pointer;
 
   font-weight: 700;
-  font-size: 14px;
+  font-size: 10px;
   color: #fff;
   text-transform: uppercase;
 
@@ -30,12 +30,9 @@ const RegButton = styled.button`
         `};
 `;
 
-const Title = styled.div`
-  color: rgba(0, 0, 0, 0.3);
-`;
-
 const RegContainer = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,15 +40,14 @@ const RegContainer = styled.div`
 `;
 
 const Form = styled.form`
-  width: 30%;
-  height: 30%;
-`;
+  width: 40%;
 
-const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  margin-bottom: 20px;
 `;
 
 const Input = styled.input`
@@ -164,48 +160,47 @@ const Registration = () => {
   return (
     <RegContainer>
       <Form onSubmit={(event) => submitHandler(event)}>
-        <FormContainer>
-          {nameDirty && <div style={{ color: "red" }}>{nameError}</div>}
-          <Input
-            onChange={(event) => nameHandler(event)}
-            value={name}
-            onBlur={(event) => blurHandler(event)}
-            name='name'
-            placeholder='Ваше Имя...'
-            type='text'
-          />
-          {numberDirty && <div style={{ color: "red" }}>{numberError}</div>}
-          <Input
-            onChange={(event) => numberHandler(event)}
-            value={number}
-            onBlur={(event) => blurHandler(event)}
-            name='number'
-            placeholder='Ваш номер телефона...'
-            type='text'
-          />
-          {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
-          <Input
-            onChange={(event) => emailHandler(event)}
-            value={email}
-            onBlur={(event) => blurHandler(event)}
-            name='email'
-            placeholder='Ваш email...'
-            type='text'
-          />
-          {passwordDirty && <div style={{ color: "red" }}>{passwordError}</div>}
-          <Input
-            onChange={(event) => {
-              passwordHandler(event);
-            }}
-            value={password}
-            onBlur={(event) => blurHandler(event)}
-            name='password'
-            type='password'
-          />
-          <RegButton disabled={!form} type='submit'>
-            Зарегестрироваться
-          </RegButton>
-        </FormContainer>
+        {nameDirty && <div style={{ color: "red" }}>{nameError}</div>}
+        <Input
+          onChange={(event) => nameHandler(event)}
+          value={name}
+          onBlur={(event) => blurHandler(event)}
+          name='name'
+          placeholder='Ваше Имя...'
+          type='text'
+        />
+        {numberDirty && <div style={{ color: "red" }}>{numberError}</div>}
+        <Input
+          onChange={(event) => numberHandler(event)}
+          value={number}
+          onBlur={(event) => blurHandler(event)}
+          name='number'
+          placeholder='Ваш номер телефона...'
+          type='text'
+        />
+        {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
+        <Input
+          onChange={(event) => emailHandler(event)}
+          value={email}
+          onBlur={(event) => blurHandler(event)}
+          name='email'
+          placeholder='Ваш email...'
+          type='text'
+        />
+        {passwordDirty && <div style={{ color: "red" }}>{passwordError}</div>}
+        <Input
+          onChange={(event) => {
+            passwordHandler(event);
+          }}
+          value={password}
+          onBlur={(event) => blurHandler(event)}
+          name='password'
+          placeholder='Ваш пароль'
+          type='password'
+        />
+        <RegButton disabled={!form} type='submit'>
+          Зарегестрироваться
+        </RegButton>
       </Form>
       <div>
         Есть аккаунт? <NavLink to='/login'>Авторизуйтесь</NavLink>

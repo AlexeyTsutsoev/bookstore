@@ -12,15 +12,14 @@ const LoginContainer = styled.div`
 `;
 
 const Form = styled.form`
-  width: 30%;
-  height: 30%;
-`;
+  width: 40%;
 
-const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  margin-bottom: 20px;
 `;
 
 const Input = styled.input`
@@ -131,30 +130,29 @@ const Login = () => {
   return (
     <LoginContainer>
       <Form onSubmit={(event) => submitHandler(event)}>
-        <FormContainer>
-          {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
-          <Input
-            onChange={(event) => emailHandler(event)}
-            value={email}
-            onBlur={(event) => blurHandler(event)}
-            name='email'
-            placeholder='Ваш email...'
-            type='text'
-          />
-          {passwordDirty && <div style={{ color: "red" }}>{passwordError}</div>}
-          <Input
-            onChange={(event) => {
-              passwordHandler(event);
-            }}
-            value={password}
-            onBlur={(event) => blurHandler(event)}
-            name='password'
-            type='password'
-          />
-          <LoginButton disabled={!form} type='submit'>
-            Войти
-          </LoginButton>
-        </FormContainer>
+        {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
+        <Input
+          onChange={(event) => emailHandler(event)}
+          value={email}
+          onBlur={(event) => blurHandler(event)}
+          name='email'
+          placeholder='Ваш email...'
+          type='text'
+        />
+        {passwordDirty && <div style={{ color: "red" }}>{passwordError}</div>}
+        <Input
+          onChange={(event) => {
+            passwordHandler(event);
+          }}
+          value={password}
+          onBlur={(event) => blurHandler(event)}
+          name='password'
+          placeholder='Ваш пароль'
+          type='password'
+        />
+        <LoginButton disabled={!form} type='submit'>
+          Войти
+        </LoginButton>
       </Form>
       <div>
         Нет аккаунта? <NavLink to='/registration'>Зарегестриуйтесь</NavLink>

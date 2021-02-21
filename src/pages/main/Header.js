@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 //styles
 import "../../components/styles/style.css";
@@ -52,6 +52,8 @@ const MainLineLogo = styled.div`
 
   grid-row-start: 2;
 
+  color: #333;
+  text-decoration: none;
   text-transform: uppercase;
   font-size: 30px;
   font-weight: bold;
@@ -113,7 +115,18 @@ const Header = () => {
           </TopLineColumn>
         </TopLine>
         <MainLine>
-          <MainLineLogo>bookstore</MainLineLogo>
+          <MainLineLogo>
+            <NavLink
+              to='/'
+              activeStyle={{
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              {" "}
+              bookstore
+            </NavLink>
+          </MainLineLogo>
           <FormContainer>
             <Form>
               <Input placeholder='Поиск' />
@@ -131,7 +144,9 @@ const Header = () => {
             </IconItem>
 
             <IconItem>
-              <FontAwesomeIcon icon={faShoppingBag} />
+              <NavLink to='/shopping-cart'>
+                <FontAwesomeIcon icon={faShoppingBag} />
+              </NavLink>
             </IconItem>
           </Icons>
         </MainLine>

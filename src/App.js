@@ -1,8 +1,8 @@
 import React from "react";
-import Store from "./pages/Store";
+import BookStore from "./pages/BookStore";
 
 function App() {
-  return <Store />;
+  return <BookStore />;
 }
 
 export default App;

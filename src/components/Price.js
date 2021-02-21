@@ -6,8 +6,7 @@ import "./styles/style.css";
 //components
 import Title from "./Title";
 
-import { Range } from "rc-slider";
-import "rc-slider/assets/index.css";
+import { Slider } from "@material-ui/core";
 
 /*STYLES*/
 const PriceContent = styled.div`
@@ -29,12 +28,10 @@ const PriceInput = styled.input`
 `;
 
 const Price = ({ title }) => {
-  const [minPrice, setMinPrice] = useState(50);
-  const [maxPrice, setMaxPrice] = useState(29900);
+  const [value, setValue] = useState([50, 29900]);
 
-  const setPrice = (arr) => {
-    setMinPrice(arr[0]);
-    setMaxPrice(arr[1]);
+  const sliderHandler = (event, data) => {
+    setValue(data);
   };
 
   return (
@@ -43,20 +40,14 @@ const Price = ({ title }) => {
       <PriceContent>
         <FilterPrice>
           <div>от</div>
-          <PriceInput value={minPrice} />
+          <PriceInput value={value[0]} />
         </FilterPrice>
         <FilterPrice>
           <div>до</div>
-          <PriceInput value={maxPrice} />
+          <PriceInput value={value[1]} />
         </FilterPrice>
       </PriceContent>
-      <Range
-        min={minPrice}
-        max={maxPrice}
-        defaultValue={[minPrice, maxPrice]}
-        onChange={(event) => setPrice(event)}
-        /*onAfterChange={(event) => setPrice(event)}*/
-      />
+      <Slider value={value} onChange={sliderHandler} min={50} max={29900} />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 //react
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addBook } from "../store/actionCreators/cartAction";
 import GeneralBtn from "./GeneralBtn";
 
 //styles
@@ -45,6 +47,11 @@ const BookPrice = styled.div`
 `;
 
 const BookItem = ({ image, author, price, name }) => {
+  const dispatch = useDispatch();
+
+  const addtoCart = (obj) => {
+    dispatch(addBook(obj));
+  };
   return (
     <Book>
       <BookImg src={image} />
@@ -52,7 +59,7 @@ const BookItem = ({ image, author, price, name }) => {
       <BookName>{name}</BookName>
       <BookPrice>{price} &#8381;</BookPrice>
       <GeneralBtn
-        clickHandler={() => console.log("click")}
+        clickHandler={() => addtoCart({ image, author, price, name })}
         text={"Добавить"}
       ></GeneralBtn>
     </Book>
