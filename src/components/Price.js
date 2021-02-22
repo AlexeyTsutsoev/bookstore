@@ -1,5 +1,5 @@
 //React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 //styles
 import "./styles/style.css";
@@ -28,10 +28,20 @@ const PriceInput = styled.input`
 `;
 
 const Price = ({ title }) => {
-  const [value, setValue] = useState([50, 29900]);
+  const [minValue, setMinValue] = useState(50);
+  const [maxValue, setMaxValue] = useState(29990);
 
   const sliderHandler = (event, data) => {
-    setValue(data);
+    setMinValue(data[0]);
+    setMaxValue(data[1]);
+  };
+
+  const changeHandlerMin = (event) => {
+    setMinValue(parseInt(event.target.value)); //Верно ли?
+  };
+
+  const changeHandlerMax = (event) => {
+    setMaxValue(parseInt(event.target.value)); //Верно ли?
   };
 
   return (
@@ -40,14 +50,27 @@ const Price = ({ title }) => {
       <PriceContent>
         <FilterPrice>
           <div>от</div>
-          <PriceInput value={value[0]} />
+          <PriceInput
+            type='number'
+            onChange={(event) => changeHandlerMin(event)}
+            value={minValue}
+          />
         </FilterPrice>
         <FilterPrice>
           <div>до</div>
-          <PriceInput value={value[1]} />
+          <PriceInput
+            type='number'
+            onChange={(event) => changeHandlerMax(event)}
+            value={maxValue}
+          />
         </FilterPrice>
       </PriceContent>
-      <Slider value={value} onChange={sliderHandler} min={50} max={29900} />
+      <Slider
+        value={[parseInt(minValue), parseInt(maxValue)]}
+        onChange={sliderHandler}
+        min={50}
+        max={29900}
+      />
     </div>
   );
 };

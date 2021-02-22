@@ -1,7 +1,28 @@
-import React from "react";
+import { Button } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { deleteBook } from "../../store/actionCreators/cartAction";
 
-const ShoppingItem = ({ book }) => {
-  return <div className='card'>{book.name}</div>;
+const ShoppingItem = ({ book, deleteBook }) => {
+  const clickHandler = () => {
+    deleteBook(book.id);
+  };
+  return (
+    <div>
+      {book.name}
+      <Button
+        onClick={() => clickHandler()}
+        variant='contained'
+        color='secondary'
+      >
+        удалить
+      </Button>
+    </div>
+  );
 };
 
-export default ShoppingItem;
+const mapDispatchToProps = {
+  deleteBook: deleteBook,
+};
+
+export default connect(null, mapDispatchToProps)(ShoppingItem);

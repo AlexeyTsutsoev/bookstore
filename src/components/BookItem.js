@@ -50,7 +50,7 @@ const BookItem = ({ image, author, price, name }) => {
   const dispatch = useDispatch();
 
   const addtoCart = (obj) => {
-    dispatch(addBook(obj));
+    dispatch(addBook({ ...obj, id: Date.now() }));
   };
   return (
     <Book>
