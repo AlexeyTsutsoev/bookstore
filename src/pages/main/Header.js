@@ -1,15 +1,11 @@
-//react
-import {
-  faUser,
-  faHeart,
-  faShoppingBag,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TextField } from "@material-ui/core";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-//styles
 import "../../components/styles/style.css";
+import PersonIcon from "@material-ui/icons/Person";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -71,11 +67,6 @@ const Form = styled.form`
   height: 100%;
 `;
 
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-`;
-
 const Icons = styled.div`
   grid-column-start: 7;
   grid-column-end: 9;
@@ -99,6 +90,11 @@ const IconItem = styled.button`
   cursor: pointer;
 `;
 
+const styleForLink = {
+  color: "black",
+  textDecoration: "none",
+};
+
 const Header = () => {
   return (
     <HeaderContainer>
@@ -116,36 +112,34 @@ const Header = () => {
         </TopLine>
         <MainLine>
           <MainLineLogo>
-            <NavLink
-              to='/'
-              activeStyle={{
-                color: "black",
-                textDecoration: "none",
-              }}
-            >
-              {" "}
+            <NavLink to='/' activeStyle={styleForLink}>
               bookstore
             </NavLink>
           </MainLineLogo>
           <FormContainer>
             <Form>
-              <Input placeholder='Поиск' />
+              <TextField
+                fullWidth={true}
+                id='outlined-basic'
+                label='Поиск...'
+                variant='outlined'
+              />
             </Form>
           </FormContainer>
           <Icons>
             <IconItem>
-              <NavLink to='/login'>
-                <FontAwesomeIcon icon={faUser} />
+              <NavLink to='/login' activeStyle={styleForLink}>
+                <PersonIcon />
               </NavLink>
             </IconItem>
 
             <IconItem>
-              <FontAwesomeIcon icon={faHeart} />
+              <FavoriteIcon />
             </IconItem>
 
             <IconItem>
-              <NavLink to='/shopping-cart'>
-                <FontAwesomeIcon icon={faShoppingBag} />
+              <NavLink to='/shopping-cart' activeStyle={styleForLink}>
+                <ShoppingBasketIcon />
               </NavLink>
             </IconItem>
           </Icons>

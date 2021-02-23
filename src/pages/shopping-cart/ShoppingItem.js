@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { deleteBook } from "../../store/actionCreators/cartAction";
 
@@ -7,6 +7,7 @@ const ShoppingItem = ({ book, deleteBook }) => {
   const clickHandler = () => {
     deleteBook(book.id);
   };
+
   return (
     <div>
       {book.name}

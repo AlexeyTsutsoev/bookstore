@@ -1,9 +1,9 @@
 //react
+import { Button } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addBook } from "../store/actionCreators/cartAction";
-import GeneralBtn from "./GeneralBtn";
 
 //styles
 import "./styles/style.css";
@@ -58,10 +58,13 @@ const BookItem = ({ image, author, price, name }) => {
       <BookAuthor>{author}</BookAuthor>
       <BookName>{name}</BookName>
       <BookPrice>{price} &#8381;</BookPrice>
-      <GeneralBtn
-        clickHandler={() => addtoCart({ image, author, price, name })}
-        text={"Добавить"}
-      ></GeneralBtn>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={() => addtoCart({ image, author, price, name })}
+      >
+        Добавить
+      </Button>
     </Book>
   );
 };

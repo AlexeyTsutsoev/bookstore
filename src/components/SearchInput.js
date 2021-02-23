@@ -1,20 +1,19 @@
 //React
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 //styles
 import "./styles/style.css";
+import { TextField } from "@material-ui/core";
 
-const Search = styled.input`
-  width: 100%;
-  margin-bottom: 10px;
-
-  border-left: none;
-  border-right: none;
-  border-top: none;
-`;
+const style = {
+  marginBottom: "10px",
+};
 
 const SearchInput = () => {
-  return <Search placeholder='Поиск' />;
+  return (
+    <form style={style}>
+      <TextField fullWidth={true} id='standard-basic' label='Поиск...' />{" "}
+    </form>
+  );
 };
 
 export default SearchInput;

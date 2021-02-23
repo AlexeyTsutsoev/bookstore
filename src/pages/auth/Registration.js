@@ -1,34 +1,7 @@
+import { TextField, Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
-const RegButton = styled.button`
-  width: 40%;
-  height: 40px;
-  padding: 12px 0;
-
-  cursor: pointer;
-
-  font-weight: 700;
-  font-size: 10px;
-  color: #fff;
-  text-transform: uppercase;
-
-  background-color: #34547a;
-  border: 0;
-  border-radius: 0;
-
-  line-height: 1.1;
-
-  ${(props) =>
-    props.disabled
-      ? `
-          opacity: 0.5;
-        `
-      : `
-          opacity: 1;
-        `};
-`;
 
 const RegContainer = styled.div`
   width: 100%;
@@ -50,22 +23,10 @@ const Form = styled.form`
   margin-bottom: 20px;
 `;
 
-const Input = styled.input`
-  background-color: #fff;
-  border: 1px solid #e7e7e7;
-
-  margin-bottom: 15px;
-
-  width: 60%;
-  height: 40px;
-  padding: 12px;
-  line-height: 1.1;
-
-  font-size: 15px;
-  font-weight: 300;
-  font-style: italic;
-  color: #333;
-`;
+const delimeter = {
+  marginBottom: "20px",
+  width: "80%",
+};
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -160,47 +121,73 @@ const Registration = () => {
   return (
     <RegContainer>
       <Form onSubmit={(event) => submitHandler(event)}>
-        {nameDirty && <div style={{ color: "red" }}>{nameError}</div>}
-        <Input
-          onChange={(event) => nameHandler(event)}
-          value={name}
-          onBlur={(event) => blurHandler(event)}
-          name='name'
-          placeholder='Ваше Имя...'
-          type='text'
-        />
-        {numberDirty && <div style={{ color: "red" }}>{numberError}</div>}
-        <Input
-          onChange={(event) => numberHandler(event)}
-          value={number}
-          onBlur={(event) => blurHandler(event)}
-          name='number'
-          placeholder='Ваш номер телефона...'
-          type='text'
-        />
-        {emailDirty && <div style={{ color: "red" }}>{emailError}</div>}
-        <Input
-          onChange={(event) => emailHandler(event)}
-          value={email}
-          onBlur={(event) => blurHandler(event)}
-          name='email'
-          placeholder='Ваш email...'
-          type='text'
-        />
-        {passwordDirty && <div style={{ color: "red" }}>{passwordError}</div>}
-        <Input
-          onChange={(event) => {
-            passwordHandler(event);
-          }}
-          value={password}
-          onBlur={(event) => blurHandler(event)}
-          name='password'
-          placeholder='Ваш пароль'
-          type='password'
-        />
-        <RegButton disabled={!form} type='submit'>
-          Зарегестрироваться
-        </RegButton>
+        <div style={delimeter}>
+          <TextField
+            fullWidth={true}
+            error={nameDirty && nameError}
+            type='text'
+            name='name'
+            onChange={(event) => nameHandler(event)}
+            value={name}
+            onBlur={(event) => blurHandler(event)}
+            id='outlined-basic'
+            label={nameDirty ? nameError : "Вашe имя..."}
+            variant='outlined'
+          />
+        </div>
+        <div style={delimeter}>
+          <TextField
+            fullWidth={true}
+            error={numberDirty && numberError}
+            type='text'
+            name='number'
+            onChange={(event) => numberHandler(event)}
+            value={number}
+            onBlur={(event) => blurHandler(event)}
+            id='outlined-basic'
+            label={numberDirty ? numberError : "Ваш номер..."}
+            variant='outlined'
+          />
+        </div>
+        <div style={delimeter}>
+          <TextField
+            fullWidth={true}
+            error={emailDirty && emailError}
+            type='text'
+            name='email'
+            onChange={(event) => emailHandler(event)}
+            value={email}
+            onBlur={(event) => blurHandler(event)}
+            id='outlined-basic'
+            label={emailDirty ? emailError : "Ваш email..."}
+            variant='outlined'
+          />
+        </div>
+        <div style={delimeter}>
+          <TextField
+            fullWidth={true}
+            error={passwordDirty && passwordError}
+            type='password'
+            name='password'
+            onChange={(event) => passwordHandler(event)}
+            value={password}
+            onBlur={(event) => blurHandler(event)}
+            id='outlined-basic'
+            label={passwordDirty ? passwordError : "Ваш пароль..."}
+            variant='outlined'
+          />
+        </div>
+        <div style={delimeter}>
+          <Button
+            fullWidth={true}
+            disabled={!form}
+            type='submit'
+            variant='contained'
+            color='primary'
+          >
+            Зарегестрироваться
+          </Button>
+        </div>
       </Form>
       <div>
         Есть аккаунт? <NavLink to='/login'>Авторизуйтесь</NavLink>

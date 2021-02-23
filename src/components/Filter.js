@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import "./styles/style.css";
 //components
 import FilterItem from "./FilterItem";
-import ShowAllButton from "./ShowAllButton";
 import styled from "styled-components";
 import SearchInput from "./SearchInput";
 import Title from "./Title";
+import { Button } from "@material-ui/core";
 
 /*Styles*/
 const FilterContainer = styled.div`
@@ -54,10 +54,7 @@ const Filter = ({ items, title }) => {
             return <FilterItem key={index} value={item.value} />;
           })}
         </div>
-        <ShowAllButton
-          text={showText()}
-          clickHandler={() => setShowAll(!showAll)}
-        />
+        <Button onClick={() => setShowAll(!showAll)}>{showText()}</Button>
       </FilterContainer>
     );
   };
