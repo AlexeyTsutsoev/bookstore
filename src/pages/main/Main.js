@@ -1,4 +1,3 @@
-//react
 import React from "react";
 import LeftSidebar from "../../components/LeftSidebar";
 import BooksArea from "../../components/BooksArea";
