@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import React from "react";
 import { connect } from "react-redux";
-import Header from "../main/Header";
-import ShoppingItem from "./ShoppingItem";
+import Header from "../../components/Header";
+import ShoppingItem from "../../components/ShoppingItem";
 import { NavLink } from "react-router-dom";
 
 const CartContainer = styled.main`
@@ -19,9 +19,26 @@ const EmptyContainer = styled.div`
   align-items: center;
 `;
 
-const FillContainer = styled.div``;
+const FillContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1px solid gray;
+`;
 
-const ShoppingCart = ({ books }) => {
+const CartFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  padding: 20px;
+  border-top: 1px solid gray;
+  margin-bottom: 100px;
+`;
+
+const ShoppingCart = ({ cart }) => {
   const renderEmpty = () => {
     return (
       <EmptyContainer>
@@ -34,9 +51,16 @@ const ShoppingCart = ({ books }) => {
   const renderFill = () => {
     return (
       <FillContainer>
-        {books.map((book) => (
+        {cart.map((book) => (
           <ShoppingItem book={book} key={book.id} />
         ))}
+        <CartFooter>
+          <div>Сумма покупки:</div>
+          <div>
+            {cart.reduce((sum, current) => sum + parseInt(current.price), 0)}
+            &#8381;
+          </div>
+        </CartFooter>
       </FillContainer>
     );
   };
@@ -46,7 +70,7 @@ const ShoppingCart = ({ books }) => {
       <Header />
       <h1>Корзина</h1>
       <CartContainer>
-        {books.length ? renderFill() : renderEmpty()}
+        {cart.length ? renderFill() : renderEmpty()}
       </CartContainer>
     </div>
   );
@@ -54,7 +78,7 @@ const ShoppingCart = ({ books }) => {
 
 const mapStateToProps = (state) => {
   return {
-    books: state.shoppingCart,
+    cart: state.shoppingCart,
   };
 };
 

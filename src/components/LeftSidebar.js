@@ -2,12 +2,12 @@
 import React from "react";
 import styled from "styled-components";
 //components
-import Price from "../../components/Price";
-import Filter from "../../components/Filter";
+import Price from "./Price";
+import Filter from "./Filter";
 //styles
-import "../../components/styles/style.css";
+import "./styles/style.css";
 //api
-import { getAuthors, getCategories, getPublishers } from "../../api/index";
+import { getAuthors, getCategories, getPublishers } from "../api/index";
 
 const SideBarContainer = styled.div`
   grid-column-start: 1;

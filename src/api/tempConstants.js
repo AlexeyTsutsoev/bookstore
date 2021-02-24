@@ -1,5 +1,3 @@
-import Lord from "../components/styles/images/book.jpg";
-
 export const categories = [
   { value: "Бестселлеры" },
   { value: "Психология" },
@@ -54,15 +52,4 @@ export const authors = [
   { value: "Александр Солженицин" },
   { value: "Александр Пушкин" },
   { value: "Лев Толстой" },
-];
-
-export const books = [
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
-  { url: Lord, name: "Lord of The Ring", author: "Jhon Tolkin", price: "1999" },
 ];

@@ -1,10 +1,11 @@
 //react
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 //components
-import BookItem from "../../components/BookItem";
+import BookItem from "./BookItem";
 //styles
-import "../../components/styles/style.css";
+import "./styles/style.css";
 
 const BooksContainer = styled.div`
   grid-column-start: 4;
@@ -35,4 +36,10 @@ const BooksArea = ({ books }) => {
   );
 };
 
-export default BooksArea;
+const mapStateToProps = (state) => {
+  return {
+    books: state.books,
+  };
+};
+
+export default connect(mapStateToProps, null)(BooksArea);

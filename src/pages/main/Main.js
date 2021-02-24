@@ -1,14 +1,10 @@
 //react
 import React from "react";
-//components
-import LeftSidebar from "./LeftSidebar";
-import BooksArea from "./BooksArea";
-//styles
+import LeftSidebar from "../../components/LeftSidebar";
+import BooksArea from "../../components/BooksArea";
 import "../../components/styles/style.css";
-//api
-import { getBooks } from "../../api/index";
 import styled from "styled-components";
-import Header from "./Header";
+import Header from "../../components/Header";
 
 const MainContainer = styled.main`
   display: grid;
@@ -21,7 +17,7 @@ const Main = () => {
       <Header />
       <MainContainer>
         <LeftSidebar />
-        <BooksArea books={getBooks()} />
+        <BooksArea />
       </MainContainer>
     </div>
   );
