@@ -38,7 +38,6 @@ const Favorites = ({ favorites }) => {
   };
 
   const renderFill = () => {
-    console.log(favorites.length);
     return (
       <FillContainer>
         {favorites.map((book) => (
@@ -60,7 +59,6 @@ const Favorites = ({ favorites }) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.favorites);
   return {
     favorites: state.favorites,
   };

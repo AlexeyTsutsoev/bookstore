@@ -7,6 +7,7 @@ import "./styles/style.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { addToFavorites } from "../store/actionCreators/favoritesAction";
+import { NavLink } from "react-router-dom";
 
 const Book = styled.div`
   flex: 0 0 30%;
@@ -79,7 +80,9 @@ const BookItem = ({ image, author, price, name }) => {
 
   return (
     <Book>
-      <BookImg src={image} />
+      <NavLink to='/book'>
+        <BookImg src={image} />
+      </NavLink>
       <BookAuthor>{author}</BookAuthor>
       <BookName>{name}</BookName>
       <BookPrice>{price} &#8381;</BookPrice>

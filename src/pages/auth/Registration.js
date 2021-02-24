@@ -124,13 +124,12 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={nameDirty && nameError}
+            error={nameDirty}
             type='text'
             name='name'
             onChange={(event) => nameHandler(event)}
             value={name}
             onBlur={(event) => blurHandler(event)}
-            id='outlined-basic'
             label={nameDirty ? nameError : "Вашe имя..."}
             variant='outlined'
           />
@@ -138,13 +137,12 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={numberDirty && numberError}
+            error={numberDirty}
             type='text'
             name='number'
             onChange={(event) => numberHandler(event)}
             value={number}
             onBlur={(event) => blurHandler(event)}
-            id='outlined-basic'
             label={numberDirty ? numberError : "Ваш номер..."}
             variant='outlined'
           />
@@ -152,13 +150,12 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={emailDirty && emailError}
+            error={emailDirty}
             type='text'
             name='email'
             onChange={(event) => emailHandler(event)}
             value={email}
             onBlur={(event) => blurHandler(event)}
-            id='outlined-basic'
             label={emailDirty ? emailError : "Ваш email..."}
             variant='outlined'
           />
@@ -166,13 +163,12 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={passwordDirty && passwordError}
+            error={passwordDirty}
             type='password'
             name='password'
             onChange={(event) => passwordHandler(event)}
             value={password}
             onBlur={(event) => blurHandler(event)}
-            id='outlined-basic'
             label={passwordDirty ? passwordError : "Ваш пароль..."}
             variant='outlined'
           />

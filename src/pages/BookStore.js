@@ -8,6 +8,7 @@ import Registration from "./auth/Registration";
 import ShoppingCart from "./shopping-cart/ShoppingCart";
 import store from "../store/store";
 import Favorites from "./favorites/Favorites";
+import Book from "./book/Book";
 
 const BookStore = () => {
   return (
@@ -18,6 +19,7 @@ const BookStore = () => {
         <Route path='/registration' component={Registration} />
         <Route path='/shopping-cart' component={ShoppingCart} />
         <Route path='/favor' component={Favorites} />
+        <Route path='/book' component={Book} />
       </BrowserRouter>
     </Provider>
   );
