@@ -134,7 +134,9 @@ const Header = () => {
             </IconItem>
 
             <IconItem>
-              <FavoriteIcon />
+              <NavLink to='/favor' activeStyle={styleForLink}>
+                <FavoriteIcon />
+              </NavLink>
             </IconItem>
 
             <IconItem>

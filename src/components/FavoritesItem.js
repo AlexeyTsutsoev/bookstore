@@ -1,8 +1,9 @@
+import React from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import React from "react";
-import { connect } from "react-redux";
-import { deleteBook } from "../store/actionCreators/cartAction";
+import { useDispatch } from "react-redux";
+import { addBook } from "../store/actionCreators/cartAction";
+import { removeFromFavorites } from "../store/actionCreators/favoritesAction";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -26,9 +27,15 @@ const ItemName = styled.div`
   font-size: 20px;
 `;
 
-const ShoppingItem = ({ book, deleteBook }) => {
-  const clickHandler = () => {
-    deleteBook(book.id);
+const FavoritesItem = ({ book }) => {
+  const dispatch = useDispatch();
+
+  const removeHandler = () => {
+    dispatch(removeFromFavorites(book.id));
+  };
+
+  const addHandler = (obj) => {
+    dispatch(addBook({ ...obj, id: Date.now() }));
   };
 
   return (
@@ -39,19 +46,25 @@ const ShoppingItem = ({ book, deleteBook }) => {
         <div>{book.author}</div>
         <div>Стоимость: {book.price} &#8381;</div>
         <Button
-          onClick={() => clickHandler()}
+          onClick={() => addHandler(book)}
+          fullWidth
+          variant='contained'
+          color='primary'
+        >
+          Добавить в корзину
+        </Button>
+        <div style={{ margin: "5px" }}></div>
+        <Button
+          onClick={() => removeHandler()}
+          fullWidth
           variant='contained'
           color='secondary'
         >
-          удалить
+          удалить из избранного
         </Button>
       </ItemInfo>
     </ItemContainer>
   );
 };
 
-const mapDispatchToProps = {
-  deleteBook: deleteBook,
-};
-
-export default connect(null, mapDispatchToProps)(ShoppingItem);
+export default FavoritesItem;

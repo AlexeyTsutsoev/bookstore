@@ -7,6 +7,7 @@ import Login from "./auth/Login";
 import Registration from "./auth/Registration";
 import ShoppingCart from "./shopping-cart/ShoppingCart";
 import store from "../store/store";
+import Favorites from "./favorites/Favorites";
 
 const BookStore = () => {
   return (
@@ -16,6 +17,7 @@ const BookStore = () => {
         <Route path='/login' component={Login} />
         <Route path='/registration' component={Registration} />
         <Route path='/shopping-cart' component={ShoppingCart} />
+        <Route path='/favor' component={Favorites} />
       </BrowserRouter>
     </Provider>
   );

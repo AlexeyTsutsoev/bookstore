@@ -4,3 +4,7 @@ export const DELETE_SHOPPING_CART = "DELETE_SHOPPING_CART";
 
 //Books
 export const ADD_BOOKAREA = "ADD_BOOKAREA";
+
+//favorites
+export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
+export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
