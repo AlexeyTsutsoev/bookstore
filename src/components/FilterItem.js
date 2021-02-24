@@ -1,10 +1,6 @@
-//react
 import React from "react";
 import styled from "styled-components";
-//styles
 import "./styles/style.css";
-
-/*STYLES*/
 
 const Item = styled.div`
   line-height: normal;

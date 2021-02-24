@@ -1,14 +1,10 @@
-//React
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-//styles
 import "./styles/style.css";
-//components
 import Title from "./Title";
 
 import { Slider } from "@material-ui/core";
 
-/*STYLES*/
 const PriceContent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -37,11 +33,11 @@ const Price = ({ title }) => {
   };
 
   const changeHandlerMin = (event) => {
-    setMinValue(parseInt(event.target.value)); //Верно ли?
+    setMinValue(parseInt(event.target.value));
   };
 
   const changeHandlerMax = (event) => {
-    setMaxValue(parseInt(event.target.value)); //Верно ли?
+    setMaxValue(parseInt(event.target.value));
   };
 
   return (

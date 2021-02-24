@@ -1,10 +1,7 @@
-//react
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-//components
 import BookItem from "./BookItem";
-//styles
 import "./styles/style.css";
 
 const BooksContainer = styled.div`

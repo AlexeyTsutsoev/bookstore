@@ -1,8 +1,5 @@
-//react
 import React from "react";
-//components
 import Main from "./main/Main";
-//styles
 import "../components/styles/style.css";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";

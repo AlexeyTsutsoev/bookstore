@@ -1,14 +1,10 @@
-//react
 import { Button } from "@material-ui/core";
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addBook } from "../store/actionCreators/cartAction";
-
-//styles
 import "./styles/style.css";
 
-/*STYLES*/
 const Book = styled.div`
   flex: 0 0 30%;
   padding: 30px;

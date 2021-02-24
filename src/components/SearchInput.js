@@ -1,6 +1,4 @@
-//React
 import React from "react";
-//styles
 import "./styles/style.css";
 import { TextField } from "@material-ui/core";
 

@@ -1,15 +1,11 @@
-//React
 import React, { useState } from "react";
-//styles
 import "./styles/style.css";
-//components
 import FilterItem from "./FilterItem";
 import styled from "styled-components";
 import SearchInput from "./SearchInput";
 import Title from "./Title";
 import { Button } from "@material-ui/core";
 
-/*Styles*/
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;

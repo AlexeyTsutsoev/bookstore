@@ -1,12 +1,8 @@
-//react
 import React from "react";
 import styled from "styled-components";
-//components
 import Price from "./Price";
 import Filter from "./Filter";
-//styles
 import "./styles/style.css";
-//api
 import { getAuthors, getCategories, getPublishers } from "../api/index";
 
 const SideBarContainer = styled.div`
