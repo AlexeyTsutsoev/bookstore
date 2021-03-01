@@ -1,7 +1,9 @@
 import { TextField, Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { signIn } from "../../http/user";
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -41,6 +43,8 @@ const Login = () => {
   );
   const [form, setForm] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (emailError || passwordError) {
       setForm(false);
@@ -50,8 +54,8 @@ const Login = () => {
   }, [emailError, passwordError]);
 
   const submitHandler = (event) => {
-    console.log(`email ${email}`);
-    console.log(`password ${password}`);
+    event.preventDefault();
+    dispatch(signIn(email, password));
   };
 
   const emailHandler = (event) => {

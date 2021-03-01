@@ -2,6 +2,7 @@ import { TextField, Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { signUp } from "../../http/user";
 
 const RegContainer = styled.div`
   width: 100%;
@@ -30,15 +31,15 @@ const delimeter = {
 
 const Registration = () => {
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nameDirty, setNameDirty] = useState(false);
-  const [numberDirty, setNumberDirty] = useState(false);
+  const [phoneDirty, setPhoneDirty] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setpasswordDirty] = useState(false);
   const [nameError, setNameError] = useState("Поле Имя не может быть пустым");
-  const [numberError, setNumberError] = useState(
+  const [phoneError, setPhoneError] = useState(
     "Поле номер телефона не может быть пустым"
   );
   const [emailError, setEmailError] = useState(
@@ -50,12 +51,12 @@ const Registration = () => {
   const [form, setForm] = useState(false);
 
   useEffect(() => {
-    if (nameError || numberError || emailError || passwordError) {
+    if (nameError || phoneError || emailError || passwordError) {
       setForm(false);
     } else {
       setForm(true);
     }
-  }, [emailError, passwordError, nameError, numberError]);
+  }, [emailError, passwordError, nameError, phoneError]);
 
   const blurHandler = (event) => {
     switch (event.target.name) {
@@ -69,7 +70,7 @@ const Registration = () => {
         setNameDirty(true);
         break;
       case "number":
-        setNumberDirty(true);
+        setPhoneDirty(true);
         break;
     }
   };
@@ -81,10 +82,10 @@ const Registration = () => {
     }
   };
 
-  const numberHandler = (event) => {
-    setNumber(event.target.value);
+  const phoneHandler = (event) => {
+    setPhone(event.target.value);
     if (event.target.value) {
-      setNumberError("");
+      setPhoneError("");
     }
   };
 
@@ -112,10 +113,12 @@ const Registration = () => {
   };
 
   const submitHandler = (event) => {
+    event.preventDefault();
     console.log(`имя ${name}`);
-    console.log(`номер ${number}`);
+    console.log(`номер ${phone}`);
     console.log(`email ${email}`);
     console.log(`password ${password}`);
+    signUp(name, email, password, phone);
   };
 
   return (
@@ -137,13 +140,13 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={numberDirty}
+            error={phoneDirty}
             type='text'
             name='number'
-            onChange={(event) => numberHandler(event)}
-            value={number}
+            onChange={(event) => phoneHandler(event)}
+            value={phone}
             onBlur={(event) => blurHandler(event)}
-            label={numberDirty ? numberError : "Ваш номер..."}
+            label={phoneDirty ? phoneError : "Ваш номер..."}
             variant='outlined'
           />
         </div>

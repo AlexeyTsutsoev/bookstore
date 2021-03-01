@@ -6,6 +6,7 @@ import "./styles/style.css";
 import PersonIcon from "@material-ui/icons/Person";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import { useSelector } from "react-redux";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -96,6 +97,20 @@ const styleForLink = {
 };
 
 const Header = () => {
+  const isAuth = useSelector((state) => state.user.isAuth);
+
+  const userLink = () => {
+    return isAuth ? (
+      <NavLink to='/user:id' activeStyle={styleForLink}>
+        <PersonIcon />
+      </NavLink>
+    ) : (
+      <NavLink to='/login' activeStyle={styleForLink}>
+        <PersonIcon />
+      </NavLink>
+    );
+  };
+
   return (
     <HeaderContainer>
       <div className='container'>
@@ -127,11 +142,7 @@ const Header = () => {
             </Form>
           </FormContainer>
           <Icons>
-            <IconItem>
-              <NavLink to='/login' activeStyle={styleForLink}>
-                <PersonIcon />
-              </NavLink>
-            </IconItem>
+            <IconItem>{userLink()}</IconItem>
 
             <IconItem>
               <NavLink to='/favor' activeStyle={styleForLink}>
