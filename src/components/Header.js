@@ -98,10 +98,12 @@ const styleForLink = {
 
 const Header = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
+  const id = useSelector((state) => state.user.user.id);
 
   const userLink = () => {
+    const path = `/user/${id}`;
     return isAuth ? (
-      <NavLink to='/user:id' activeStyle={styleForLink}>
+      <NavLink to={path} activeStyle={styleForLink}>
         <PersonIcon />
       </NavLink>
     ) : (

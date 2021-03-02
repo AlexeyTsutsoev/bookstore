@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Main from "./main/Main";
 import "../components/styles/style.css";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -8,10 +8,17 @@ import ShoppingCart from "./shopping-cart/ShoppingCart";
 import Favorites from "./favorites/Favorites";
 import Book from "./book/Book";
 import UserPage from "./auth/UserPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUser } from "../http/user";
 
 const BookStore = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUser());
+  }, []);
+
   if (isAuth) {
     return (
       <Switch>
