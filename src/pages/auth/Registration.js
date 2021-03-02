@@ -114,10 +114,6 @@ const Registration = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(`имя ${name}`);
-    console.log(`номер ${phone}`);
-    console.log(`email ${email}`);
-    console.log(`password ${password}`);
     signUp(name, email, password, phone);
   };
 

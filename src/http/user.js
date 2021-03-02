@@ -4,14 +4,18 @@ import config from "../config";
 
 export const signUp = async (name, email, password, phone) => {
   try {
-    const response = await axios.post(config.serverAddress + "/auth/sign-up", {
-      name,
-      email,
-      password,
-      phone,
-    });
-    console.log(response.data.message);
+    const response = await axios.post(
+      config.development.serverAddress + "/auth/sign-up",
+      {
+        name,
+        email,
+        password,
+        phone,
+      }
+    );
+    alert(response.data.message);
   } catch (err) {
+    console.log("ошибка регистрации");
     console.log(err.message);
   }
 };
@@ -20,16 +24,17 @@ export const signIn = (email, password) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        config.serverAddress + "/auth/sign-in",
+        config.development.serverAddress + "/auth/sign-in",
         {
           email,
           password,
         }
       );
-      console.log(response.data.user);
       dispatch(setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
+      alert("вход выполнен");
     } catch (err) {
+      console.log("ошибка входа");
       console.log(err.message);
     }
   };
@@ -38,12 +43,12 @@ export const signIn = (email, password) => {
 export const checkUser = () => {
   return async (dispatch) => {
     try {
-      console.log(localStorage.getItem("token"));
-      const response = await axios.get(config.serverAddress + "/auth/me", {
-        headers: { authorization: `Bearer ` + localStorage.getItem("token") },
-      });
-      console.log(response);
-      console.log(response.data.user);
+      const response = await axios.get(
+        config.development.serverAddress + "/auth/me",
+        {
+          headers: { authorization: `Bearer ` + localStorage.getItem("token") },
+        }
+      );
       dispatch(setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
     } catch (err) {

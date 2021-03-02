@@ -39,7 +39,7 @@ const BookStore = () => {
       <Route path='/shopping-cart' component={ShoppingCart} />
       <Route path='/favor' component={Favorites} />
       <Route path='/book' component={Book} />
-      <Redirect from='/user:id' to='/' />
+      <Redirect from='/user' to='/' />
     </Switch>
   );
 };

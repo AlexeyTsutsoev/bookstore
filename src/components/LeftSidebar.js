@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Price from "./Price";
 import Filter from "./Filter";
 import "./styles/style.css";
 import { getAuthors, getCategories, getPublishers } from "../api/index";
+import { getAuthorsFromDb } from "../http/filters";
 
 const SideBarContainer = styled.div`
   grid-column-start: 1;
@@ -11,6 +12,7 @@ const SideBarContainer = styled.div`
 `;
 
 const LeftSidebar = () => {
+  const [authors, setAuthors] = useState(getAuthorsFromDb());
   return (
     <SideBarContainer>
       <Filter items={getCategories()} title={"Категории"} />
