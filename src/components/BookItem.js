@@ -10,17 +10,14 @@ import { addToFavorites } from "../store/actionCreators/favoritesAction";
 import { NavLink } from "react-router-dom";
 
 const Book = styled.div`
-  flex: 0 0 30%;
   padding: 30px;
   padding-bottom: 0;
+
+  width: 30%;
 
   background-color: white;
 
   margin-bottom: 30px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   transition: background 0.2s linear;
 
@@ -36,9 +33,7 @@ const BookAuthor = styled.div`
   font-size: 15px;
 `;
 
-const BookName = styled.div`
-  font-size: 20px;
-`;
+const BookName = styled.div``;
 
 const BookPrice = styled.div`
   font-size: 25px;
@@ -81,7 +76,7 @@ const BookItem = ({ image, author, price, name }) => {
   return (
     <Book>
       <NavLink to='/book'>
-        <BookImg src={image} />
+        <BookImg src={image ? image : "https://place-hold.it/300x500"} />
       </NavLink>
       <BookAuthor>{author}</BookAuthor>
       <BookName>{name}</BookName>

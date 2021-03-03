@@ -1,8 +1,8 @@
-import { ADD_BOOKAREA } from "../actions/types";
+import { INITIALIZATION_BOOKS } from "../actions/types";
 
-export const addToBookArea = (book) => {
+export const initializeBooks = (books) => {
   return {
-    type: ADD_BOOKAREA,
-    payload: book,
+    type: INITIALIZATION_BOOKS,
+    payload: books,
   };
 };

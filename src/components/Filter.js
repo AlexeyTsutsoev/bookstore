@@ -5,6 +5,14 @@ import styled from "styled-components";
 import SearchInput from "./SearchInput";
 import Title from "./Title";
 import { Button } from "@material-ui/core";
+import {
+  addAuthorFilter,
+  removeAuthorFilter,
+} from "../store/actionCreators/authorAction";
+import {
+  addPublisherFilter,
+  removePublisherFilter,
+} from "../store/actionCreators/publisherAction";
 
 const FilterContainer = styled.div`
   display: flex;
@@ -14,6 +22,27 @@ const FilterContainer = styled.div`
 
 const Filter = ({ items, title }) => {
   const [showAll, setShowAll] = useState(false);
+
+  const filterMethod = () => {
+    let add;
+    let remove;
+    switch (title) {
+      case "Авторы":
+        add = addAuthorFilter;
+        remove = removeAuthorFilter;
+        break;
+      case "Издатели":
+        add = addPublisherFilter;
+        remove = removePublisherFilter;
+        break;
+      default:
+        add = null;
+        remove = null;
+        break;
+    }
+
+    return { add, remove };
+  };
 
   const lockItem = () => {
     return showAll ? items : items.slice(0, 6);
@@ -32,8 +61,10 @@ const Filter = ({ items, title }) => {
       <FilterContainer>
         <Title title={title} />
         <div>
-          {items.map((item, index) => {
-            return <FilterItem key={index} value={item.value} />;
+          {items.map((item) => {
+            return (
+              <FilterItem key={item.id} value={item} methods={filterMethod()} />
+            );
           })}
         </div>
       </FilterContainer>
@@ -46,8 +77,10 @@ const Filter = ({ items, title }) => {
         <Title title={title} />
         {showInput()}
         <div>
-          {lockItem().map((item, index) => {
-            return <FilterItem key={index} value={item.value} />;
+          {lockItem().map((item) => {
+            return (
+              <FilterItem key={item.id} value={item} methods={filterMethod()} />
+            );
           })}
         </div>
         <Button onClick={() => setShowAll(!showAll)}>{showText()}</Button>

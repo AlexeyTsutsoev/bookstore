@@ -1,6 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getAllBooksFromDb } from "../http/books";
 import BookItem from "./BookItem";
 import "./styles/style.css";
 
@@ -15,15 +16,22 @@ const BooksContainer = styled.div`
   justify-content: center;
 `;
 
-const BooksArea = ({ books }) => {
+const BooksArea = () => {
+  const bookList = useSelector((state) => state.books.books);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllBooksFromDb());
+  }, []);
+
   return (
     <BooksContainer className='container'>
-      {books.map((item, index) => {
+      {bookList.map((item) => {
         return (
           <BookItem
-            key={index}
-            image={item.url}
-            author={item.author}
+            key={item.id}
+            image={item.cover}
+            author={item.author.name}
             price={item.price}
             name={item.name}
           />
@@ -33,10 +41,4 @@ const BooksArea = ({ books }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    books: state.books,
-  };
-};
-
-export default connect(mapStateToProps, null)(BooksArea);
+export default BooksArea;

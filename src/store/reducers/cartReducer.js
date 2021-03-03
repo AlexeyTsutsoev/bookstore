@@ -5,7 +5,10 @@ const cartReducer = (state = [], action) => {
     case ADD_SHOPPING_CART:
       return [...state, action.payload];
     case DELETE_SHOPPING_CART:
-      return state.filter((book) => book.id !== action.payload); //Верно ли?
+      return {
+        ...state,
+        state: state.filter((book) => book.id !== action.payload),
+      }; //верно ли?
     default:
       return state;
   }
