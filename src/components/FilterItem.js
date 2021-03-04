@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getAllBooksFromDb } from "../http/books";
 import "./styles/style.css";
 
 const Item = styled.div`
@@ -23,8 +22,6 @@ const Action = styled.a`
 
 const FilterItem = ({ value, methods }) => {
   const [isActive, setActive] = useState(false);
-  const authors = useSelector((state) => state.authors);
-  const publishers = useSelector((state) => state.publishers);
   const dispatch = useDispatch();
 
   const clickHandler = () => {
@@ -32,8 +29,6 @@ const FilterItem = ({ value, methods }) => {
     isActive
       ? dispatch(methods.remove(value.id))
       : dispatch(methods.add(value.id));
-
-    dispatch(getAllBooksFromDb(authors, publishers));
   };
 
   const getColor = () => {

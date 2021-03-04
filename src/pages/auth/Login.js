@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { signIn } from "../../http/user";
+import { login } from "../../store/actionCreators/userAction";
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -43,8 +43,6 @@ const Login = () => {
   );
   const [form, setForm] = useState(false);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (emailError || passwordError) {
       setForm(false);
@@ -53,9 +51,15 @@ const Login = () => {
     }
   }, [emailError, passwordError]);
 
+  const dispatch = useDispatch();
+
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(signIn(email, password));
+    try {
+      dispatch(login(email, password));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const emailHandler = (event) => {
@@ -98,7 +102,7 @@ const Login = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={emailDirty}
+            error={emailDirty && emailError}
             type='text'
             name='email'
             onChange={(event) => emailHandler(event)}
@@ -111,7 +115,7 @@ const Login = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={passwordDirty}
+            error={passwordDirty && passwordError}
             type='password'
             name='password'
             onChange={(event) => passwordHandler(event)}

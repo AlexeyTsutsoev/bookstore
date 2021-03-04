@@ -8,16 +8,9 @@ import ShoppingCart from "./shopping-cart/ShoppingCart";
 import Favorites from "./favorites/Favorites";
 import Book from "./book/Book";
 import UserPage from "./auth/UserPage";
-import { useDispatch, useSelector } from "react-redux";
-import { checkUser } from "../http/user";
-
+import { useSelector } from "react-redux";
 const BookStore = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(checkUser());
-  }, []);
 
   if (isAuth) {
     return (

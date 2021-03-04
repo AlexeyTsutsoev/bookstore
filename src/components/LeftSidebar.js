@@ -7,7 +7,7 @@ import {
   getAuthorsFromDb,
   getCategoriesFromDb,
   getPublishersFromDB,
-} from "../http/filters";
+} from "../api/filters";
 
 const SideBarContainer = styled.div`
   grid-column-start: 1;
@@ -21,17 +21,17 @@ const LeftSidebar = () => {
 
   const getCategoriesAPI = async () => {
     const categories = await getCategoriesFromDb();
-    setCategories(categories);
+    setCategories(categories.data);
   };
 
   const getPublishersAPI = async () => {
     const publishers = await getPublishersFromDB();
-    setPublishers(publishers);
+    setPublishers(publishers.data);
   };
 
   const getAuthorsAPI = async () => {
     const authors = await getAuthorsFromDb();
-    setAuthors(authors);
+    setAuthors(authors.data);
   };
 
   useEffect(() => {

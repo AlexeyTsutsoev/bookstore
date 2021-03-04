@@ -13,6 +13,10 @@ import {
   addPublisherFilter,
   removePublisherFilter,
 } from "../store/actionCreators/publisherAction";
+import {
+  addCategoryFilter,
+  removeCategoryFilter,
+} from "../store/actionCreators/categoryAction";
 
 const FilterContainer = styled.div`
   display: flex;
@@ -23,7 +27,7 @@ const FilterContainer = styled.div`
 const Filter = ({ items, title }) => {
   const [showAll, setShowAll] = useState(false);
 
-  const filterMethod = () => {
+  const filterMethods = () => {
     let add;
     let remove;
     switch (title) {
@@ -34,6 +38,10 @@ const Filter = ({ items, title }) => {
       case "Издатели":
         add = addPublisherFilter;
         remove = removePublisherFilter;
+        break;
+      case "Категории":
+        add = addCategoryFilter;
+        remove = removeCategoryFilter;
         break;
       default:
         add = null;
@@ -63,7 +71,11 @@ const Filter = ({ items, title }) => {
         <div>
           {items.map((item) => {
             return (
-              <FilterItem key={item.id} value={item} methods={filterMethod()} />
+              <FilterItem
+                key={item.id}
+                value={item}
+                methods={filterMethods()}
+              />
             );
           })}
         </div>
@@ -79,7 +91,11 @@ const Filter = ({ items, title }) => {
         <div>
           {lockItem().map((item) => {
             return (
-              <FilterItem key={item.id} value={item} methods={filterMethod()} />
+              <FilterItem
+                key={item.id}
+                value={item}
+                methods={filterMethods()}
+              />
             );
           })}
         </div>

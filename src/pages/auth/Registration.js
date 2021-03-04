@@ -2,7 +2,7 @@ import { TextField, Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { signUp } from "../../http/user";
+import { signUp } from "../../api/user";
 
 const RegContainer = styled.div`
   width: 100%;
@@ -114,7 +114,13 @@ const Registration = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    signUp(name, email, password, phone);
+    try {
+      signUp(name, email, password, phone)
+        .then(() => alert("Пользователь зарегестрирован"))
+        .catch(() => alert("Ошибка регистрации"));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (
@@ -123,7 +129,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={nameDirty}
+            error={nameDirty && nameError}
             type='text'
             name='name'
             onChange={(event) => nameHandler(event)}
@@ -136,7 +142,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={phoneDirty}
+            error={phoneDirty && phoneError}
             type='text'
             name='number'
             onChange={(event) => phoneHandler(event)}
@@ -149,7 +155,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={emailDirty}
+            error={emailDirty && emailError}
             type='text'
             name='email'
             onChange={(event) => emailHandler(event)}
@@ -162,7 +168,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={passwordDirty}
+            error={passwordDirty && passwordError}
             type='password'
             name='password'
             onChange={(event) => passwordHandler(event)}
