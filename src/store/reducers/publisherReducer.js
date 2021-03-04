@@ -10,7 +10,7 @@ const publisherReducer = (state = initialState, action) => {
     case ADD_PUBLISHER_FILTER:
       return [...state, action.payload];
     case REMOVE_PUBLISHER_FILTER:
-      return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item !== action.payload);
     default:
       return state;
   }

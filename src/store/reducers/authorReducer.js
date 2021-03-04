@@ -7,7 +7,7 @@ const authorReducer = (state = initialState, action) => {
     case ADD_AUTHOR_FILTER:
       return [...state, action.payload];
     case REMOVE_AUTHOR_FILTER:
-      return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item !== action.payload);
     default:
       return state;
   }
