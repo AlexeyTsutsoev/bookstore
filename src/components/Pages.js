@@ -27,9 +27,18 @@ const Pages = () => {
   const dispatch = useDispatch();
   const plug = [1, 2, 3];
 
+  const getPages = (count, limit) => {
+    const lenght = Math.ceil(count / limit);
+    const result = [];
+    for (let i = 1; i <= lenght; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
   return (
     <PagesContainer>
-      {plug.map((item, index) => (
+      {getPages(count, limit).map((item, index) => (
         <Span
           onClick={() => dispatch(setCurrentPage(item))}
           className={currentPage === item ? "current" : "notCurrent"}
