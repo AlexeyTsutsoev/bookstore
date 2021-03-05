@@ -19,3 +19,9 @@ export const getCategoriesFromDb = () => {
     url: path + "categories",
   });
 };
+
+export const getPricesFromDb = () => {
+  return axios({
+    url: path + "price",
+  });
+};

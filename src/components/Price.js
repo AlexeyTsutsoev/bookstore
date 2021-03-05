@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import "./styles/style.css";
 import Title from "./Title";
 
 import { Slider } from "@material-ui/core";
+import { getPricesFromDb } from "../api/filters";
+import { setMinPrice, setMaxPrice } from "../store/actionCreators/priceAction";
 
 const PriceContent = styled.div`
   display: flex;
@@ -26,18 +29,40 @@ const PriceInput = styled.input`
 const Price = ({ title }) => {
   const [minValue, setMinValue] = useState(50);
   const [maxValue, setMaxValue] = useState(29990);
+  const [slidersValues, setSlidersValues] = useState([minValue, maxValue]);
+  const dispatch = useDispatch();
+
+  const getPricesAPI = async () => {
+    console.log("start API");
+    const prices = await getPricesFromDb();
+    console.log(prices.data);
+    setMinValue(prices.data.minPrice);
+    setMaxValue(prices.data.maxPrice);
+    setSlidersValues([prices.data.minPrice, prices.data.maxPrice]);
+  };
+
+  useEffect(() => {
+    getPricesAPI();
+  }, []);
 
   const sliderHandler = (event, data) => {
     setMinValue(data[0]);
     setMaxValue(data[1]);
   };
 
+  const setPrices = () => {
+    dispatch(setMinPrice(minValue));
+    dispatch(setMaxPrice(maxValue));
+  };
+
   const changeHandlerMin = (event) => {
     setMinValue(parseInt(event.target.value));
+    dispatch(setMinPrice(parseInt(event.target.value)));
   };
 
   const changeHandlerMax = (event) => {
     setMaxValue(parseInt(event.target.value));
+    dispatch(setMaxPrice(parseInt(event.target.value)));
   };
 
   return (
@@ -64,8 +89,9 @@ const Price = ({ title }) => {
       <Slider
         value={[parseInt(minValue), parseInt(maxValue)]}
         onChange={sliderHandler}
-        min={50}
-        max={29900}
+        onChangeCommitted={setPrices}
+        min={slidersValues[0]}
+        max={slidersValues[1]}
       />
     </div>
   );
