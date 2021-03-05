@@ -29,17 +29,28 @@ const BooksArea = () => {
   const currentPage = useSelector((state) => state.books.currentPage);
   const authorsFilter = useSelector((state) => state.authors);
   const publishersFilter = useSelector((state) => state.publishers);
+  const categoriesFilter = useSelector((state) => state.categories);
+  const priceFilter = useSelector((state) => state.prices);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(priceFilter);
     dispatch(
       loadBook({
         page: currentPage - 1,
         authors: authorsFilter,
         publishers: publishersFilter,
+        categories: categoriesFilter,
+        prices: [priceFilter.min, priceFilter.max],
       })
     );
-  }, []);
+  }, [
+    categoriesFilter,
+    publishersFilter,
+    authorsFilter,
+    currentPage,
+    priceFilter,
+  ]);
 
   return (
     <Container>
