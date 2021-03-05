@@ -129,7 +129,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={nameDirty && nameError}
+            error={nameDirty && Boolean(nameError)}
             type='text'
             name='name'
             onChange={(event) => nameHandler(event)}
@@ -142,7 +142,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={phoneDirty && phoneError}
+            error={phoneDirty && Boolean(phoneError)}
             type='text'
             name='number'
             onChange={(event) => phoneHandler(event)}
@@ -155,7 +155,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={emailDirty && emailError}
+            error={emailDirty && Boolean(emailError)}
             type='text'
             name='email'
             onChange={(event) => emailHandler(event)}
@@ -168,7 +168,7 @@ const Registration = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={passwordDirty && passwordError}
+            error={passwordDirty && Boolean(passwordError)}
             type='password'
             name='password'
             onChange={(event) => passwordHandler(event)}

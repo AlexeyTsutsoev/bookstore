@@ -102,7 +102,7 @@ const Login = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={emailDirty && emailError}
+            error={emailDirty && Boolean(emailError)}
             type='text'
             name='email'
             onChange={(event) => emailHandler(event)}
@@ -115,7 +115,7 @@ const Login = () => {
         <div style={delimeter}>
           <TextField
             fullWidth={true}
-            error={passwordDirty && passwordError}
+            error={passwordDirty && Boolean(passwordError)}
             type='password'
             name='password'
             onChange={(event) => passwordHandler(event)}
