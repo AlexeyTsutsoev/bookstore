@@ -13,14 +13,16 @@ export const loadBook = ({
   categories = "",
   authors = "",
   publishers = "",
+  prices = "",
 }) => async (dispatch) => {
   try {
-    const response = await getBooksFromDb(
+    const response = await getBooksFromDb({
       page,
       categories,
       authors,
-      publishers
-    );
+      publishers,
+      prices,
+    });
     dispatch(initializeBooks(response.data.rows, response.data.count));
   } catch (err) {
     console.log(err?.message);
