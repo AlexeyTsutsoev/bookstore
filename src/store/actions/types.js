@@ -9,12 +9,18 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 //authors
 export const ADD_AUTHOR_FILTER = "ADD_AUTHOR_FILTER";
 export const REMOVE_AUTHOR_FILTER = "REMOVE_AUTHOR_FILTER";
+
 //publishers
 export const ADD_PUBLISHER_FILTER = "ADD_PUBLISHER_FILTER";
 export const REMOVE_PUBLISHER_FILTER = "REMOVE_PUBLISHER_FILTER";
+
 //cateroies
 export const ADD_CATEGORY_FILTER = "ADD_CATEGORY_FILTER";
 export const REMOVE_CATEGORY_FILTER = "REMOVE_CATEGORY_FILTER";
+
+//prices
+export const SET_MIN_RPICE = "SET_MIN_RPICE";
+export const SET_MAX_PRICE = "SET_MAX_PRICE";
 
 //favorites
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
