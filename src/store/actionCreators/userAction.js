@@ -11,6 +11,7 @@ export const setUser = (user) => {
 export const login = (email, password) => async (dispatch) => {
   try {
     const response = await signIn(email, password);
+    console.log(response);
     dispatch(setUser(response.data.user));
     localStorage.setItem("accessToken", response.data.token.accessToken);
     localStorage.setItem("refreshToken", response.data.token.refreshToken);
