@@ -19,7 +19,7 @@ const BookStore = () => {
         <Route path='/user/:id' component={UserPage} />
         <Route path='/shopping-cart' component={ShoppingCart} />
         <Route path='/favor' component={Favorites} />
-        <Route path='/book' component={Book} />
+        <Route path='/book/:id' component={Book} />
         <Redirect from='/login' to='/' />
       </Switch>
     );
@@ -31,7 +31,7 @@ const BookStore = () => {
       <Route path='/registration' component={Registration} />
       <Route path='/shopping-cart' component={ShoppingCart} />
       <Route path='/favor' component={Favorites} />
-      <Route path='/book' component={Book} />
+      <Route path='/book/:id' component={Book} />
       <Redirect from='/user' to='/' />
     </Switch>
   );

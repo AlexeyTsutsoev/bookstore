@@ -9,6 +9,7 @@ const ItemContainer = styled.div`
   justify-content: space-between;
   border: 1px solid gray;
   height: 200px;
+  width: 40%;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
@@ -33,7 +34,7 @@ const ShoppingItem = ({ book, deleteBook }) => {
 
   return (
     <ItemContainer>
-      <img src={book.image} />
+      <img src={book.cover ? book.cover : "https://place-hold.it/300x500"} />
       <ItemInfo>
         <ItemName>{book.name}</ItemName>
         <div>{book.author}</div>
