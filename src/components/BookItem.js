@@ -8,7 +8,6 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { addToFavorites } from "../store/actionCreators/favoritesAction";
 import { NavLink } from "react-router-dom";
-import { setCurrentBook } from "../store/actionCreators/booksAction";
 
 const Book = styled.div`
   padding: 30px;
@@ -27,6 +26,7 @@ const Book = styled.div`
 
 const BookImg = styled.img`
   width: 100%;
+  height: 70%;
 `;
 
 const BookAuthor = styled.div`
@@ -59,10 +59,6 @@ const BookItem = ({ book }) => {
     dispatch(addBook(book));
   };
 
-  const setBook = (bookId) => {
-    dispatch(setCurrentBook(bookId));
-  };
-
   const addToFav = (book) => {
     if (!isFavor) {
       dispatch(addToFavorites(book));
@@ -80,7 +76,7 @@ const BookItem = ({ book }) => {
 
   return (
     <Book>
-      <NavLink to={path} onClick={() => setBook(book.id)}>
+      <NavLink to={path}>
         <BookImg
           src={book.cover ? book.cover : "https://place-hold.it/300x500"}
         />
