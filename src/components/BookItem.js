@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addBook } from "../store/actionCreators/cartAction";
 import "./styles/style.css";
@@ -8,6 +8,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { addToFavorites } from "../store/actionCreators/favoritesAction";
 import { NavLink } from "react-router-dom";
+import { setCurrentBook } from "../store/actionCreators/booksAction";
 
 const Book = styled.div`
   padding: 30px;
@@ -48,17 +49,23 @@ const Buttons = styled.div`
   align-items: center;
 `;
 
-const BookItem = ({ image, author, price, name }) => {
+const BookItem = ({ book }) => {
   const [isFavor, setFavor] = useState(false);
   const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.user.isAuth);
+  const path = `/book/${book.id}`;
 
-  const addtoCart = (obj) => {
-    dispatch(addBook({ ...obj, id: Date.now() }));
+  const addtoCart = (book) => {
+    dispatch(addBook(book));
   };
 
-  const addToFav = (obj) => {
+  const setBook = (bookId) => {
+    dispatch(setCurrentBook(bookId));
+  };
+
+  const addToFav = (book) => {
     if (!isFavor) {
-      dispatch(addToFavorites({ ...obj, id: Date.now() }));
+      dispatch(addToFavorites(book));
       setFavor(!isFavor);
     }
   };
@@ -67,30 +74,32 @@ const BookItem = ({ image, author, price, name }) => {
     return isFavor ? (
       <FavoriteIcon />
     ) : (
-      <FavoriteBorderIcon
-        onClick={() => addToFav({ image, author, price, name })}
-      />
+      <FavoriteBorderIcon onClick={() => addToFav(book)} />
     );
   };
 
   return (
     <Book>
-      <NavLink to='/book'>
-        <BookImg src={image ? image : "https://place-hold.it/300x500"} />
+      <NavLink to={path} onClick={() => setBook(book.id)}>
+        <BookImg
+          src={book.cover ? book.cover : "https://place-hold.it/300x500"}
+        />
       </NavLink>
-      <BookAuthor>{author}</BookAuthor>
-      <BookName>{name}</BookName>
-      <BookPrice>{price} &#8381;</BookPrice>
-      <Buttons>
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => addtoCart({ image, author, price, name })}
-        >
-          Добавить
-        </Button>
-        {renderFavor()}
-      </Buttons>
+      <BookAuthor>{book.author}</BookAuthor>
+      <BookName>{book.name}</BookName>
+      <BookPrice>{book.price} &#8381;</BookPrice>
+      {isAuth && (
+        <Buttons>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => addtoCart(book)}
+          >
+            Добавить
+          </Button>
+          {renderFavor()}
+        </Buttons>
+      )}
     </Book>
   );
 };

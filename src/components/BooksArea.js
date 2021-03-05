@@ -34,7 +34,6 @@ const BooksArea = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(priceFilter);
     dispatch(
       loadBook({
         page: currentPage - 1,
@@ -59,10 +58,13 @@ const BooksArea = () => {
           return (
             <BookItem
               key={item.id}
-              image={item.cover}
-              author={item.author.name}
-              price={item.price}
-              name={item.name}
+              book={{
+                id: item.id,
+                cover: item.cover,
+                author: item.author.name,
+                price: item.price,
+                name: item.name,
+              }}
             />
           );
         })}
