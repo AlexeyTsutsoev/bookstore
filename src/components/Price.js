@@ -33,9 +33,7 @@ const Price = ({ title }) => {
   const dispatch = useDispatch();
 
   const getPricesAPI = async () => {
-    console.log("start API");
     const prices = await getPricesFromDb();
-    console.log(prices.data);
     setMinValue(prices.data.minPrice);
     setMaxValue(prices.data.maxPrice);
     setSlidersValues([prices.data.minPrice, prices.data.maxPrice]);
