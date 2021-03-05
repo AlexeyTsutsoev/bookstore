@@ -40,10 +40,3 @@ export const setCurrentPage = (page) => {
     payload: page,
   };
 };
-
-export const setCurrentBook = (bookId) => {
-  return {
-    type: SET_CURRENT_BOOK,
-    payload: bookId,
-  };
-};
