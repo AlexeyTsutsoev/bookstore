@@ -1,7 +1,12 @@
-import { INITIALIZATION_BOOKS, SET_CURRENT_PAGE } from "../actions/types";
+import {
+  INITIALIZATION_BOOKS,
+  SET_CURRENT_BOOK,
+  SET_CURRENT_PAGE,
+} from "../actions/types";
 
 const initialState = {
   books: [],
+  currentBook: -1,
   currentPage: 1,
   limit: 6,
   count: 0,
@@ -19,6 +24,11 @@ const booksReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      };
+    case SET_CURRENT_BOOK:
+      return {
+        ...state,
+        currentBook: action.payload,
       };
     default:
       return state;

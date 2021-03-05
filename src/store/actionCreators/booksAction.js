@@ -1,5 +1,9 @@
 import { getBooksFromDb } from "../../api/books";
-import { INITIALIZATION_BOOKS, SET_CURRENT_PAGE } from "../actions/types";
+import {
+  INITIALIZATION_BOOKS,
+  SET_CURRENT_BOOK,
+  SET_CURRENT_PAGE,
+} from "../actions/types";
 
 export const initializeBooks = (books, count) => {
   return {
@@ -34,5 +38,12 @@ export const setCurrentPage = (page) => {
   return {
     type: SET_CURRENT_PAGE,
     payload: page,
+  };
+};
+
+export const setCurrentBook = (bookId) => {
+  return {
+    type: SET_CURRENT_BOOK,
+    payload: bookId,
   };
 };
