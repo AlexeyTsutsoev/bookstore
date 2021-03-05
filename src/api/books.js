@@ -15,3 +15,9 @@ export const getBooksFromDb = ({
     params: { authors, publishers, categories, prices, limit, page },
   });
 };
+
+export const getOneBookFromDb = (id) => {
+  return axios({
+    url: path + "/" + id,
+  });
+};
