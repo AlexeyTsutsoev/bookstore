@@ -29,6 +29,16 @@ export const signIn = (email, password) => {
 export const checkUser = () => {
   return axios({
     url: path + "me",
-    headers: { authorization: `Bearer ` + localStorage.getItem("token") },
+    headers: { authorization: `Bearer ` + localStorage.getItem("accessToken") },
+  });
+};
+
+export const refreshToken = () => {
+  return axios({
+    method: "POST",
+    url: path + "refresh",
+    headers: {
+      authorization: `Bearer ` + localStorage.getItem("refreshToken"),
+    },
   });
 };
