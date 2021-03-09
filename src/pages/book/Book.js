@@ -1,4 +1,4 @@
-import { Button, TextareaAutosize, TextField } from "@material-ui/core";
+import { Button, TextareaAutosize } from "@material-ui/core";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import React, { useEffect, useState } from "react";
@@ -8,37 +8,17 @@ import { getOneBookFromDb } from "../../api/books";
 import Header from "../../components/Header";
 import { addBook } from "../../store/actionCreators/cartAction";
 import { addToFavorites } from "../../store/actionCreators/favoritesAction";
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: rows;
-`;
-
-const Item = styled.div`
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const Info = styled.div`
-  border-bottom: 1px solid gray;
-  font-size: 20px;
-`;
-
-const Title = styled.p`
-  margin: 0;
-  color: gray;
-  font-size: 15px;
-  opacity: 0.5;
-`;
+import {
+  createComment,
+  deleteComment,
+  getCommentsFromDb,
+} from "../../api/comments";
+import Comments from "../../components/Comments";
+import BookPageItem from "../../components/BookPageItem";
 
 const Buttons = styled.div`
   width: 100%;
+  margin: 20px;
 `;
 
 const Form = styled.form`
@@ -46,6 +26,8 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
+  width: 80%;
 `;
 
 const CommentBlock = styled.section`
@@ -57,9 +39,13 @@ const CommentBlock = styled.section`
 `;
 
 const Book = (props) => {
+  const emptyComments = "Тут будут комментарии...";
   const bookId = props.match.params.id;
   const isAuth = useSelector((state) => state.user.isAuth);
+  const currentUser = useSelector((state) => state.user.user.id);
+  const [comment, setComment] = useState("");
   const [isFavor, setFavor] = useState(false);
+  const [comments, setComments] = useState([]);
   //plug for test
   const [book, setBook] = useState({
     id: 1,
@@ -94,9 +80,16 @@ const Book = (props) => {
     setBook(book.data);
   };
 
+  const getCommentsAPI = async () => {
+    const comments = await getCommentsFromDb(bookId);
+    setComments(comments.data);
+  };
+
   useEffect(() => {
     getBookAPI();
-  }, []);
+    getCommentsAPI();
+  }, [comments]);
+
   const dispatch = useDispatch();
 
   const addtoCart = (book) => {
@@ -121,41 +114,16 @@ const Book = (props) => {
     );
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    createComment(bookId, currentUser, comment);
+    setComment("");
+  };
+
   return (
     <div className='container'>
       <Header />
-      <Section>
-        <Item>
-          <img
-            src={book.cover ? book.cover : "https://place-hold.it/300x500"}
-          />
-        </Item>
-        <Item>
-          <Info>
-            <Title> Наименование: </Title>
-            {book.name}
-          </Info>
-          <Info>
-            <Title>Автор: </Title>
-            {book.author.name}
-          </Info>
-          <Info>
-            <Title>Издательство:</Title> {book.publisher.name}
-          </Info>
-          <Info>
-            <Title>Категории:</Title>
-            {book.categories.length
-              ? book.categories.map((i) => {
-                  return <div key={i.id}>{i.name}</div>;
-                })
-              : "Отсутсвуют"}
-          </Info>
-          <Info>
-            <Title>Цена: </Title>
-            {book.price}&#8381;
-          </Info>
-        </Item>
-      </Section>
+      <BookPageItem book={book} />
       {isAuth && (
         <Buttons>
           <Button
@@ -168,19 +136,24 @@ const Book = (props) => {
           {renderFavor()}
         </Buttons>
       )}
-      <Form>
-        <TextareaAutosize
-          style={{ width: "60%", margin: "20px" }}
-          rowsMax={4}
-          rowsMin={3}
-          placeholder='Ваш комментарий'
-        />
-        <Button type='onSubmit' variant='contained' color='primary'>
-          Отправить
-        </Button>
-      </Form>
-
-      <CommentBlock>Тут будут комментарии.....</CommentBlock>
+      <CommentBlock>
+        {isAuth && (
+          <Form onSubmit={submitHandler}>
+            <TextareaAutosize
+              onChange={(event) => setComment(event.target.value)}
+              style={{ margin: "20px", width: "100%" }}
+              rowsMax={4}
+              rowsMin={3}
+              placeholder='Ваш комментарий'
+              value={comment}
+            />
+            <Button type='submit' variant='contained' color='primary'>
+              Отправить
+            </Button>
+          </Form>
+        )}
+        {comments.length ? <Comments comments={comments} /> : emptyComments}
+      </CommentBlock>
     </div>
   );
 };
