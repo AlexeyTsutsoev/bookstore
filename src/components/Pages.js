@@ -40,6 +40,7 @@ const Pages = () => {
     <PagesContainer>
       {getPages(count, limit).map((item, index) => (
         <Span
+          style={{ cursor: "pointer" }}
           onClick={() => dispatch(setCurrentPage(item))}
           className={currentPage === item ? "current" : "notCurrent"}
           key={index}
