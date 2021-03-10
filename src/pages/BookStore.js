@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Main from "./main/Main";
 import "../components/styles/style.css";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -11,7 +11,6 @@ import UserPage from "./auth/UserPage";
 import { useSelector } from "react-redux";
 const BookStore = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
-
   if (isAuth) {
     return (
       <Switch>
