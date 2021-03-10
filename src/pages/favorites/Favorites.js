@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import FavoritesItem from "../../components/FavoritesItem";
 import Header from "../../components/Header";
+import { deleteFromFavor, getFavoritesFromDb } from "../../api/favorites";
+import { useSelector } from "react-redux";
 
 const FavorContainer = styled.main`
   display: flex;
@@ -26,9 +27,25 @@ const FillContainer = styled.div`
   align-items: flex-start;
 `;
 
-const Favorites = ({ favorites }) => {
+const Favorites = () => {
+  const [favorites, setFavorites] = useState([]);
+  const userId = useSelector((state) => state.user.user.id);
+
+  const favHandler = async () => {
+    const response = await getFavoritesFromDb(userId);
+    setFavorites(response.data.favorites);
+  };
+
+  useEffect(() => {
+    favHandler();
+  }, [userId]);
+
+  const removeFavor = (id) => {
+    setFavorites(favorites.filter((favorite) => favorite.id !== id));
+    deleteFromFavor(userId, id);
+  };
+
   const renderEmpty = () => {
-    console.log(favorites.length);
     return (
       <EmptyContainer>
         <p>У вас нет избранных товаров</p>
@@ -40,12 +57,22 @@ const Favorites = ({ favorites }) => {
   const renderFill = () => {
     return (
       <FillContainer>
-        {favorites.map((book) => (
-          <FavoritesItem book={book} key={book.id} />
+        {favorites.map((item) => (
+          <FavoritesItem
+            onRemove={removeFavor}
+            price={item.book.price}
+            cover={item.book.cover}
+            author={item.book.author.name}
+            name={item.book.name}
+            id={item.book_id}
+            key={item.id}
+          />
         ))}
       </FillContainer>
     );
   };
+
+  console.log(favorites);
 
   return (
     <div className='container'>
@@ -58,10 +85,4 @@ const Favorites = ({ favorites }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    favorites: state.favorites,
-  };
-};
-
-export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;
