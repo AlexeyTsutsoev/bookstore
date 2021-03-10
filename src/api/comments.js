@@ -20,6 +20,7 @@ export const createComment = (bookId, userId, text) => {
       userId,
       text,
     },
+    headers: { authorization: `Bearer ` + localStorage.getItem("accessToken") },
   });
 };
 
@@ -30,6 +31,7 @@ export const updateComment = (id, text) => {
     data: {
       text,
     },
+    headers: { authorization: `Bearer ` + localStorage.getItem("accessToken") },
   });
 };
 
@@ -37,5 +39,6 @@ export const deleteComment = (id) => {
   return axios({
     method: "DELETE",
     url: path + "/delete/" + id,
+    headers: { authorization: `Bearer ` + localStorage.getItem("accessToken") },
   });
 };
