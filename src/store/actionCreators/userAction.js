@@ -1,11 +1,30 @@
 import { SET_USER, SIGN_OUT } from "../actions/types";
-import { signIn } from "../../api/user";
+import { checkUser, refreshToken, signIn } from "../../api/user";
 
 export const setUser = (user) => {
+  console.log("setuser");
   return {
     type: SET_USER,
     payload: user,
   };
+};
+
+export const auth = () => async (dispatch) => {
+  try {
+    const response = await checkUser();
+    console.log(response.data.user);
+    dispatch(setUser(response.data.user));
+  } catch (err) {
+    if (err.data.type === "TokenExpiredError") {
+      const refresh = await refreshToken();
+      dispatch(setUser(refresh.data.user));
+      localStorage.setItem("accessToken", refresh.data.token.accessToken);
+      localStorage.setItem("refreshToken", refresh.data.token.refreshToken);
+    } else {
+      console.log("ошибка auth");
+      console.log(err.message);
+    }
+  }
 };
 
 export const login = (email, password) => async (dispatch) => {
