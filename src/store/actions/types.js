@@ -22,9 +22,8 @@ export const REMOVE_CATEGORY_FILTER = "REMOVE_CATEGORY_FILTER";
 export const SET_MIN_RPICE = "SET_MIN_RPICE";
 export const SET_MAX_PRICE = "SET_MAX_PRICE";
 
-//favorites
-export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
-export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
+//search
+export const SET_KEYWORD = "SET_KEYWORD";
 
 //users
 export const SET_USER = "SET_USER";

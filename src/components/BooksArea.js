@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { getFavoritesFromDb } from "../api/favorites";
 import { loadBook } from "../store/actionCreators/booksAction";
 import BookItem from "./BookItem";
 import Pages from "./Pages";
@@ -26,6 +27,7 @@ const BooksContainer = styled.div`
 
 const BooksArea = () => {
   const bookList = useSelector((state) => state.books.books);
+  const keyword = useSelector((state) => state.search);
   const currentPage = useSelector((state) => state.books.currentPage);
   const authorsFilter = useSelector((state) => state.authors);
   const publishersFilter = useSelector((state) => state.publishers);
@@ -41,6 +43,7 @@ const BooksArea = () => {
         publishers: publishersFilter,
         categories: categoriesFilter,
         prices: [priceFilter.min, priceFilter.max],
+        keyword: keyword,
       })
     );
   }, [
@@ -49,6 +52,7 @@ const BooksArea = () => {
     authorsFilter,
     currentPage,
     priceFilter,
+    keyword,
   ]);
 
   return (

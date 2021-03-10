@@ -9,10 +9,11 @@ export const getBooksFromDb = ({
   publishers = "",
   limit = 6,
   prices = "",
+  keyword = "",
 }) => {
   return axios({
     url: path,
-    params: { authors, publishers, categories, prices, limit, page },
+    params: { authors, publishers, categories, prices, limit, page, keyword },
   });
 };
 
