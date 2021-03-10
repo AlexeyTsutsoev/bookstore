@@ -1,12 +1,14 @@
-import { TextField } from "@material-ui/core";
-import React from "react";
+import { IconButton, TextField } from "@material-ui/core";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import "./styles/style.css";
 import PersonIcon from "@material-ui/icons/Person";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import { useSelector } from "react-redux";
+import ClearIcon from "@material-ui/icons/Clear";
+import { useDispatch, useSelector } from "react-redux";
+import { setKeyword } from "../store/actionCreators/searchAction";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -97,8 +99,11 @@ const styleForLink = {
 };
 
 const Header = () => {
+  const [searchVal, setSearchVal] = useState("");
   const isAuth = useSelector((state) => state.user.isAuth);
   const id = useSelector((state) => state.user.user.id);
+  const search = useSelector((state) => state.search);
+  const dispatch = useDispatch();
 
   const userLink = () => {
     const path = `/user/${id}`;
@@ -111,6 +116,16 @@ const Header = () => {
         <PersonIcon />
       </NavLink>
     );
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatch(setKeyword(searchVal));
+    setSearchVal("");
+  };
+
+  const clearSearch = () => {
+    dispatch(setKeyword(""));
   };
 
   return (
@@ -134,14 +149,25 @@ const Header = () => {
             </NavLink>
           </MainLineLogo>
           <FormContainer>
-            <Form>
+            <Form onSubmit={submitHandler}>
               <TextField
                 fullWidth={true}
                 id='outlined-basic'
                 label='Поиск...'
                 variant='outlined'
+                value={searchVal}
+                onChange={(event) => setSearchVal(event.target.value)}
               />
             </Form>
+            {search && (
+              <div>
+                Результаты поиска по запросу:{search}
+                <ClearIcon
+                  onClick={clearSearch}
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            )}
           </FormContainer>
           <Icons>
             <IconItem>{userLink()}</IconItem>
