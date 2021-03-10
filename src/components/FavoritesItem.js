@@ -1,9 +1,8 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBook } from "../store/actionCreators/cartAction";
-import { removeFromFavorites } from "../store/actionCreators/favoritesAction";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -27,26 +26,23 @@ const ItemName = styled.div`
   font-size: 20px;
 `;
 
-const FavoritesItem = ({ book }) => {
+const FavoritesItem = ({ onRemove, name, id, price, cover, author }) => {
   const dispatch = useDispatch();
-
-  const removeHandler = () => {
-    dispatch(removeFromFavorites(book.id));
-  };
+  const userId = useSelector((state) => state.user.user.id);
 
   const addHandler = (obj) => {
-    dispatch(addBook({ ...obj, id: Date.now() }));
+    dispatch(addBook(obj));
   };
 
   return (
     <ItemContainer>
-      <img src={book.image} />
+      <img src={cover} />
       <ItemInfo>
-        <ItemName>{book.name}</ItemName>
-        <div>{book.author}</div>
-        <div>Стоимость: {book.price} &#8381;</div>
+        <ItemName>{name}</ItemName>
+        <div>{author}</div>
+        <div>Стоимость: {price} &#8381;</div>
         <Button
-          onClick={() => addHandler(book)}
+          onClick={() => addHandler({ name, id, price, cover, author })}
           fullWidth
           variant='contained'
           color='primary'
@@ -55,7 +51,7 @@ const FavoritesItem = ({ book }) => {
         </Button>
         <div style={{ margin: "5px" }}></div>
         <Button
-          onClick={() => removeHandler()}
+          onClick={() => onRemove(id)}
           fullWidth
           variant='contained'
           color='secondary'

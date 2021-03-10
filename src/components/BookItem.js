@@ -1,13 +1,13 @@
 import { Button } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addBook } from "../store/actionCreators/cartAction";
 import "./styles/style.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { addToFavorites } from "../store/actionCreators/favoritesAction";
 import { NavLink } from "react-router-dom";
+import { addToFavorAtDb, getFavoritesFromDb } from "../api/favorites";
 
 const Book = styled.div`
   padding: 30px;
@@ -52,16 +52,32 @@ const Buttons = styled.div`
 const BookItem = ({ book }) => {
   const [isFavor, setFavor] = useState(false);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.id);
   const isAuth = useSelector((state) => state.user.isAuth);
   const path = `/book/${book.id}`;
+
+  const favorHandler = async () => {
+    const response = await getFavoritesFromDb(userId);
+    const favoritesArr = response.data.favorites;
+    for (let i = 0; i < favoritesArr.length; i++) {
+      if (favoritesArr[i].book_id === book.id) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    favorHandler().then((res) => setFavor(res));
+  }, []);
 
   const addtoCart = (book) => {
     dispatch(addBook(book));
   };
 
-  const addToFav = (book) => {
+  const addToFav = () => {
     if (!isFavor) {
-      dispatch(addToFavorites(book));
+      addToFavorAtDb(userId, book.id);
       setFavor(!isFavor);
     }
   };
@@ -70,7 +86,7 @@ const BookItem = ({ book }) => {
     return isFavor ? (
       <FavoriteIcon />
     ) : (
-      <FavoriteBorderIcon onClick={() => addToFav(book)} />
+      <FavoriteBorderIcon onClick={() => addToFav()} />
     );
   };
 
