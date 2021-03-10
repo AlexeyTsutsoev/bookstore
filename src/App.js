@@ -1,38 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BookStore from "./pages/BookStore";
-import store from "./store/store";
-import { Provider, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { checkUser, refreshToken } from "./api/user";
-import { setUser } from "./store/actionCreators/userAction";
+import { auth } from "./store/actionCreators/userAction";
+import { CircularProgress } from "@material-ui/core";
 
 function App() {
   const dispatch = useDispatch();
-
-  const userHandler = async () => {
-    try {
-      const result = await checkUser();
-      dispatch(setUser(result.data.user));
-    } catch (err) {
-      console.log(err);
-      if (err.data.type === "TokenExpiredError") {
-        const refresh = await refreshToken();
-        dispatch(setUser(refresh.data.user));
-        localStorage.setItem("accessToken", refresh.data.token.accessToken);
-        localStorage.setItem("refreshToken", refresh.data.token.refreshToken);
-      }
-    }
-  };
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    userHandler();
+    (async () => {
+      try {
+        await dispatch(auth());
+      } catch (err) {
+        console.log(err);
+      }
+      setIsAuthorized(true);
+    })();
   }, []);
+
+  if (!isAuthorized) {
+    return <CircularProgress style={{ width: "50%", height: "50%" }} />;
+  }
+
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <BookStore />
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <BookStore />
+    </BrowserRouter>
   );
 }
 
