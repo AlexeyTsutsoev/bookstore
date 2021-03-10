@@ -7,12 +7,7 @@ import styled from "styled-components";
 import { getOneBookFromDb } from "../../api/books";
 import Header from "../../components/Header";
 import { addBook } from "../../store/actionCreators/cartAction";
-import { addToFavorites } from "../../store/actionCreators/favoritesAction";
-import {
-  createComment,
-  deleteComment,
-  getCommentsFromDb,
-} from "../../api/comments";
+import { createComment, getCommentsFromDb } from "../../api/comments";
 import Comments from "../../components/Comments";
 import BookPageItem from "../../components/BookPageItem";
 
@@ -88,7 +83,7 @@ const Book = (props) => {
   useEffect(() => {
     getBookAPI();
     getCommentsAPI();
-  }, [comments]);
+  }, [comment]);
 
   const dispatch = useDispatch();
 
@@ -98,8 +93,7 @@ const Book = (props) => {
 
   const addToFav = (book) => {
     if (!isFavor) {
-      dispatch(addToFavorites(book));
-      setFavor(!isFavor);
+      console.log("test");
     }
   };
 
@@ -114,9 +108,9 @@ const Book = (props) => {
     );
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    createComment(bookId, currentUser, comment);
+    await createComment(bookId, currentUser, comment);
     setComment("");
   };
 
