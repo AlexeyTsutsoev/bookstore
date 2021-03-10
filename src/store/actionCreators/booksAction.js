@@ -1,9 +1,5 @@
 import { getBooksFromDb } from "../../api/books";
-import {
-  INITIALIZATION_BOOKS,
-  SET_CURRENT_BOOK,
-  SET_CURRENT_PAGE,
-} from "../actions/types";
+import { INITIALIZATION_BOOKS, SET_CURRENT_PAGE } from "../actions/types";
 
 export const initializeBooks = (books, count) => {
   return {
@@ -18,6 +14,7 @@ export const loadBook = ({
   authors = "",
   publishers = "",
   prices = "",
+  keyword = "",
 }) => async (dispatch) => {
   try {
     const response = await getBooksFromDb({
@@ -26,10 +23,11 @@ export const loadBook = ({
       authors,
       publishers,
       prices,
+      keyword,
     });
     dispatch(initializeBooks(response.data.rows, response.data.count));
   } catch (err) {
-    console.log(err?.message);
+    console.log(err.message);
     console.log("ошибка запроса");
   }
 };
