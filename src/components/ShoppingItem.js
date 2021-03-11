@@ -1,8 +1,8 @@
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
 import React from "react";
-import { connect } from "react-redux";
-import { deleteBook } from "../store/actionCreators/cartAction";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -27,20 +27,43 @@ const ItemName = styled.div`
   font-size: 20px;
 `;
 
-const ShoppingItem = ({ book, deleteBook }) => {
-  const clickHandler = () => {
-    deleteBook(book.id);
-  };
+const Counter = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+const ShoppingItem = ({ onRemove, item, onIncrement, onDecrement }) => {
+  //NEED REVIEW
   return (
     <ItemContainer>
-      <img src={book.cover ? book.cover : "https://place-hold.it/300x500"} />
+      <img
+        src={
+          item.book.cover ? item.book.cover : "https://place-hold.it/300x500"
+        }
+      />
       <ItemInfo>
-        <ItemName>{book.name}</ItemName>
-        <div>{book.author}</div>
-        <div>Стоимость: {book.price} &#8381;</div>
+        <ItemName>{item.book.name}</ItemName>
+        <div>{item.book.author.name}</div>
+        <div>
+          Колличество:
+          <Counter>
+            <RemoveIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => onDecrement(item.book.id)}
+            />
+            {item.count}
+            <AddIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => onIncrement(item.book.id)}
+            />
+          </Counter>
+        </div>
+        <div>Стоимость: {item.book.price * item.count} &#8381;</div>
         <Button
-          onClick={() => clickHandler()}
+          onClick={() => onRemove(item.book.id)}
           variant='contained'
           color='secondary'
         >
@@ -51,8 +74,4 @@ const ShoppingItem = ({ book, deleteBook }) => {
   );
 };
 
-const mapDispatchToProps = {
-  deleteBook: deleteBook,
-};
-
-export default connect(null, mapDispatchToProps)(ShoppingItem);
+export default ShoppingItem;
