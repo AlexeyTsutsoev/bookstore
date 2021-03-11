@@ -1,14 +1,34 @@
-import { ADD_SHOPPING_CART, DELETE_SHOPPING_CART } from "../actions/types";
+//NEED REVIEW
+import cartCollection from "../../utils/cartCollection";
+import {
+  ADD_SHOPPING_CART,
+  DECREMENT_ITEM,
+  DELETE_SHOPPING_CART,
+  INCREMENT_ITEM,
+} from "../actions/types";
 
-const cartReducer = (state = [], action) => {
+const initialState = new cartCollection(
+  JSON.parse(localStorage.getItem("cart")) || []
+);
+
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_SHOPPING_CART:
-      return [...state, action.payload];
+      state.add(action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+      return state;
     case DELETE_SHOPPING_CART:
-      return {
-        ...state,
-        state: state.filter((book) => book.id !== action.payload),
-      }; //верно ли?
+      state.remove(action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+      return state;
+    case INCREMENT_ITEM:
+      state.incrementCounter(action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+      return state;
+    case DECREMENT_ITEM:
+      state.decrementCounter(action.payload);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+      return state;
     default:
       return state;
   }
