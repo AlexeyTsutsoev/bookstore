@@ -12,7 +12,6 @@ export const setUser = (user) => {
 export const auth = () => async (dispatch) => {
   try {
     const response = await checkUser();
-    console.log(response.data.user);
     dispatch(setUser(response.data.user));
   } catch (err) {
     if (err.data.type === "TokenExpiredError") {
