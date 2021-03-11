@@ -1,13 +1,12 @@
-import { Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { addBook } from "../store/actionCreators/cartAction";
 import "./styles/style.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { NavLink } from "react-router-dom";
 import { addToFavorAtDb, getFavoritesFromDb } from "../api/favorites";
+import AddToCartBtn from "./AddtoCartBtn";
 
 const Book = styled.div`
   padding: 30px;
@@ -51,7 +50,6 @@ const Buttons = styled.div`
 
 const BookItem = ({ book }) => {
   const [isFavor, setFavor] = useState(false);
-  const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.id);
   const isAuth = useSelector((state) => state.user.isAuth);
   const path = `/book/${book.id}`;
@@ -72,10 +70,6 @@ const BookItem = ({ book }) => {
   useEffect(() => {
     favorHandler().then((res) => setFavor(res));
   }, []);
-
-  const addtoCart = (book) => {
-    dispatch(addBook(book));
-  };
 
   const addToFav = () => {
     if (!isFavor) {
@@ -104,13 +98,7 @@ const BookItem = ({ book }) => {
       <BookPrice>{book.price} &#8381;</BookPrice>
       {isAuth && (
         <Buttons>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => addtoCart(book)}
-          >
-            Добавить
-          </Button>
+          <AddToCartBtn book={book} />
           {renderFavor()}
         </Buttons>
       )}
