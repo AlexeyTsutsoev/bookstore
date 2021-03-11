@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header";
 import ShoppingItem from "../../components/ShoppingItem";
 import { NavLink } from "react-router-dom";
+import {
+  decrementItem,
+  deleteBook,
+  incrementItem,
+} from "../../store/actionCreators/cartAction";
 
 const CartContainer = styled.main`
   display: flex;
@@ -38,7 +43,29 @@ const CartFooter = styled.div`
   margin-bottom: 100px;
 `;
 
-const ShoppingCart = ({ cart }) => {
+//NEED REVIEW
+const ShoppingCart = () => {
+  const [sum, setSum] = useState(0);
+  const [cart, setCart] = useState(
+    useSelector((state) => state.shoppingCart.cart)
+  );
+  const dispatch = useDispatch();
+
+  const removeHandler = (id) => {
+    dispatch(deleteBook(id));
+    setCart(JSON.parse(localStorage.getItem("cart")));
+  };
+
+  const incrementHandler = (id) => {
+    dispatch(incrementItem(id));
+    setCart(JSON.parse(localStorage.getItem("cart")));
+  };
+
+  const decrementHandler = (id) => {
+    dispatch(decrementItem(id));
+    setCart(JSON.parse(localStorage.getItem("cart")));
+  };
+
   const renderEmpty = () => {
     return (
       <EmptyContainer>
@@ -48,16 +75,35 @@ const ShoppingCart = ({ cart }) => {
     );
   };
 
+  const totalSum = () => {
+    let result = 0;
+    for (let i = 0; i < cart.length; i++) {
+      let sumOneBook = cart[i].book.price * cart[i].count;
+      result += sumOneBook;
+    }
+    setSum(result);
+  };
+
+  useEffect(() => {
+    totalSum();
+  }, [totalSum]);
+
   const renderFill = () => {
     return (
       <FillContainer>
         {cart.map((book) => (
-          <ShoppingItem book={book} key={book.id} />
+          <ShoppingItem
+            onIncrement={incrementHandler}
+            onDecrement={decrementHandler}
+            onRemove={removeHandler}
+            item={book}
+            key={book.id}
+          />
         ))}
         <CartFooter>
           <div>Сумма покупки:</div>
           <div>
-            {cart.reduce((sum, current) => sum + parseInt(current.price), 0)}
+            {sum}
             &#8381;
           </div>
         </CartFooter>
@@ -76,10 +122,4 @@ const ShoppingCart = ({ cart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cart: state.shoppingCart,
-  };
-};
-
-export default connect(mapStateToProps, null)(ShoppingCart);
+export default ShoppingCart;
