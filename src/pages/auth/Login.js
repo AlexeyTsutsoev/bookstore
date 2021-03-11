@@ -30,7 +30,7 @@ const delimeter = {
   width: "80%",
 };
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailDirty, setEmailDirty] = useState(false);
@@ -57,6 +57,7 @@ const Login = () => {
     event.preventDefault();
     try {
       dispatch(login(email, password));
+      props.history.push("/");
     } catch (err) {
       console.log(err.message);
     }
