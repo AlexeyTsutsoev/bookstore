@@ -11,15 +11,20 @@ const Item = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  max-width: 30%;
+  max-height: 50%;
+
   img {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 500px;
   }
 `;
 
 const Info = styled.div`
   border-bottom: 1px solid gray;
   font-size: 20px;
+  height: auto;
 `;
 
 const Title = styled.p`
@@ -45,7 +50,8 @@ const BookPageItem = ({ book }) => {
           {book.author.name}
         </Info>
         <Info>
-          <Title>Издательство:</Title> {book.publisher.name}
+          <Title>Издательство:</Title>
+          {book.publisher.name}
         </Info>
         <Info>
           <Title>Категории:</Title>
@@ -54,6 +60,10 @@ const BookPageItem = ({ book }) => {
                 return <div key={i.id}>{i.name}</div>;
               })
             : "Отсутсвуют"}
+        </Info>
+        <Info>
+          <Title>Описание:</Title>
+          {book.discription}
         </Info>
         <Info>
           <Title>Цена: </Title>
