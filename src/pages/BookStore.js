@@ -8,30 +8,26 @@ import ShoppingCart from "./shopping-cart/ShoppingCart";
 import Favorites from "./favorites/Favorites";
 import Book from "./book/Book";
 import UserPage from "./auth/UserPage";
+import ProtectedRouter from "../utils/ProtectedRouter";
 import { useSelector } from "react-redux";
+import CreateNewBook from "./book/CreateNewBook";
+
 const BookStore = () => {
-  const isAuth = useSelector((state) => state.user.isAuth);
-  if (isAuth) {
-    return (
-      <Switch>
-        <Route exact path='/' component={Main} />
-        <Route path='/user/:id' component={UserPage} />
-        <Route path='/shopping-cart' component={ShoppingCart} />
-        <Route path='/favor' component={Favorites} />
-        <Route path='/book/:id' component={Book} />
-        <Redirect from='/login' to='/' />
-      </Switch>
-    );
-  }
+  const user = useSelector((state) => state.user.user);
   return (
     <Switch>
-      <Route exact path='/' component={Main} />
       <Route path='/login' component={Login} />
       <Route path='/registration' component={Registration} />
+      <Route exact path='/' component={Main} />
       <Route path='/shopping-cart' component={ShoppingCart} />
-      <Route path='/favor' component={Favorites} />
       <Route path='/book/:id' component={Book} />
-      <Redirect from='/user' to='/' />
+      <ProtectedRouter path='/favor' component={Favorites} />
+      <ProtectedRouter path='/user/:id' component={UserPage} />
+      {user.isAdmin ? (
+        <Route path='/createBook' component={CreateNewBook} />
+      ) : (
+        <Redirect to='/' />
+      )}
     </Switch>
   );
 };
