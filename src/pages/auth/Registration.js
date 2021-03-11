@@ -29,7 +29,7 @@ const delimeter = {
   width: "80%",
 };
 
-const Registration = () => {
+const Registration = (props) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -116,7 +116,10 @@ const Registration = () => {
     event.preventDefault();
     try {
       signUp(name, email, password, phone)
-        .then(() => alert("Пользователь зарегестрирован"))
+        .then(() => {
+          alert("Пользователь зарегестрирован");
+          props.history.push("/login");
+        })
         .catch(() => alert("Ошибка регистрации"));
     } catch (err) {
       console.log(err.message);
