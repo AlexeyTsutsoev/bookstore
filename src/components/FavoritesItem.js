@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { addBook } from "../store/actionCreators/cartAction";
+import AddToCartBtn from "./AddtoCartBtn";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -26,32 +25,19 @@ const ItemName = styled.div`
   font-size: 20px;
 `;
 
-const FavoritesItem = ({ onRemove, name, id, price, cover, author }) => {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.id);
-
-  const addHandler = (obj) => {
-    dispatch(addBook(obj));
-  };
-
+const FavoritesItem = ({ onRemove, book }) => {
+  console.log(book);
   return (
     <ItemContainer>
-      <img src={cover} />
+      <img src={book.cover} />
       <ItemInfo>
-        <ItemName>{name}</ItemName>
-        <div>{author}</div>
-        <div>Стоимость: {price} &#8381;</div>
-        <Button
-          onClick={() => addHandler({ name, id, price, cover, author })}
-          fullWidth
-          variant='contained'
-          color='primary'
-        >
-          Добавить в корзину
-        </Button>
+        <ItemName>{book.name}</ItemName>
+        <div>{book.author.name}</div>
+        <div>Стоимость: {book.price} &#8381;</div>
+        <AddToCartBtn book={book} />
         <div style={{ margin: "5px" }}></div>
         <Button
-          onClick={() => onRemove(id)}
+          onClick={() => onRemove(book.id)}
           fullWidth
           variant='contained'
           color='secondary'
