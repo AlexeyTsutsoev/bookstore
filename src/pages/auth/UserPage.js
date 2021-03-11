@@ -29,8 +29,8 @@ const Photo = styled.div`
   margin-right: 20px;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
   }
 `;
 
@@ -51,6 +51,7 @@ const UserPage = () => {
   const outHandler = () => {
     dispatch(signOut());
   };
+  console.log(user);
   return (
     <PageContainer>
       <PageContent>
@@ -66,6 +67,11 @@ const UserPage = () => {
           <InfoItem>name: {user.name} </InfoItem>
           <InfoItem>email: {user.email} </InfoItem>
           <NavLink to='/favor'>Ваши избранные книги </NavLink>
+          {user.isAdmin ? (
+            <NavLink to='/createBook'>Добавить книгу в магазин</NavLink>
+          ) : (
+            ""
+          )}
           <button onClick={outHandler}>Выход</button>
         </UserInfo>
       </PageContent>
