@@ -58,15 +58,7 @@ const Favorites = () => {
     return (
       <FillContainer>
         {favorites.map((item) => (
-          <FavoritesItem
-            onRemove={removeFavor}
-            price={item.book.price}
-            cover={item.book.cover}
-            author={item.book.author.name}
-            name={item.book.name}
-            id={item.book_id}
-            key={item.id}
-          />
+          <FavoritesItem onRemove={removeFavor} book={item.book} />
         ))}
       </FillContainer>
     );
