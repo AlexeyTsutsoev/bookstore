@@ -1,19 +1,20 @@
 import { Button, TextareaAutosize } from "@material-ui/core";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getOneBookFromDb } from "../../api/books";
 import Header from "../../components/Header";
-import { addBook } from "../../store/actionCreators/cartAction";
 import { createComment, getCommentsFromDb } from "../../api/comments";
 import Comments from "../../components/Comments";
 import BookPageItem from "../../components/BookPageItem";
+import AddToCartBtn from "../../components/AddtoCartBtn";
 
 const Buttons = styled.div`
   width: 100%;
   margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Form = styled.form`
@@ -39,7 +40,6 @@ const Book = (props) => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const currentUser = useSelector((state) => state.user.user.id);
   const [comment, setComment] = useState("");
-  const [isFavor, setFavor] = useState(false);
   const [comments, setComments] = useState([]);
   //plug for test
   const [book, setBook] = useState({
@@ -85,29 +85,6 @@ const Book = (props) => {
     getCommentsAPI();
   }, [comment]);
 
-  const dispatch = useDispatch();
-
-  const addtoCart = (book) => {
-    dispatch(addBook(book));
-  };
-
-  const addToFav = (book) => {
-    if (!isFavor) {
-      console.log("test");
-    }
-  };
-
-  const renderFavor = () => {
-    return isFavor ? (
-      <FavoriteIcon style={{ cursor: "pointer" }} />
-    ) : (
-      <FavoriteBorderIcon
-        style={{ cursor: "pointer" }}
-        onClick={() => addToFav(book)}
-      />
-    );
-  };
-
   const submitHandler = async (event) => {
     event.preventDefault();
     await createComment(bookId, currentUser, comment);
@@ -120,14 +97,7 @@ const Book = (props) => {
       <BookPageItem book={book} />
       {isAuth && (
         <Buttons>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => addtoCart(book)}
-          >
-            Добавить в корзину
-          </Button>
-          {renderFavor()}
+          <AddToCartBtn book={book} />
         </Buttons>
       )}
       <CommentBlock>
