@@ -57,14 +57,16 @@ const BookItem = ({ book }) => {
   const path = `/book/${book.id}`;
 
   const favorHandler = async () => {
-    const response = await getFavoritesFromDb(userId);
-    const favoritesArr = response.data.favorites;
-    for (let i = 0; i < favoritesArr.length; i++) {
-      if (favoritesArr[i].book_id === book.id) {
-        return true;
+    if (isAuth) {
+      const response = await getFavoritesFromDb(userId);
+      const favoritesArr = response.data.favorites;
+      for (let i = 0; i < favoritesArr.length; i++) {
+        if (favoritesArr[i].book_id === book.id) {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
   };
 
   useEffect(() => {
