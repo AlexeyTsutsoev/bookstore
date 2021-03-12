@@ -15,7 +15,6 @@ export default async ({
   params = {},
   headers = {},
   data = {},
-  body = {},
 }) => {
   try {
     const response = await axios({
