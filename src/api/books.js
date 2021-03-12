@@ -22,3 +22,23 @@ export const getOneBookFromDb = (id) => {
     url: path + "/" + id,
   });
 };
+
+export const addBookToDb = (
+  id,
+  { name, authorId, publisherId, discription, cover, price, categories }
+) => {
+  return axios({
+    method: "POST",
+    url: path + "/add",
+    headers: { userid: id },
+    data: {
+      name,
+      authorId,
+      publisherId,
+      discription,
+      cover,
+      price,
+      categories,
+    },
+  });
+};
