@@ -22,9 +22,9 @@ const EmptyContainer = styled.div`
 
 const FillContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
 `;
 
 const Favorites = () => {
@@ -38,10 +38,11 @@ const Favorites = () => {
 
   useEffect(() => {
     favHandler();
-  }, [userId]);
+  }, []);
 
   const removeFavor = (id) => {
-    setFavorites(favorites.filter((favorite) => favorite.id !== id));
+    const filter = favorites.filter((favorite) => favorite.book_id !== id);
+    setFavorites(filter);
     deleteFromFavor(userId, id);
   };
 
