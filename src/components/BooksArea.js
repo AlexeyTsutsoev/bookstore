@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getFavoritesFromDb } from "../api/favorites";
 import { loadBook } from "../store/actionCreators/booksAction";
 import BookItem from "./BookItem";
 import Pages from "./Pages";
