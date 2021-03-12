@@ -25,7 +25,6 @@ const Pages = () => {
   const limit = useSelector((state) => state.books.limit);
   const count = useSelector((state) => state.books.count);
   const dispatch = useDispatch();
-  const plug = [1, 2, 3];
 
   const getPages = (count, limit) => {
     const lenght = Math.ceil(count / limit);
@@ -36,12 +35,16 @@ const Pages = () => {
     return result;
   };
 
+  const clickHandler = (page) => {
+    dispatch(setCurrentPage(page));
+  };
+
   return (
     <PagesContainer>
       {getPages(count, limit).map((item, index) => (
         <Span
           style={{ cursor: "pointer" }}
-          onClick={() => dispatch(setCurrentPage(item))}
+          onClick={() => clickHandler(item)}
           className={currentPage === item ? "current" : "notCurrent"}
           key={index}
         >
