@@ -17,14 +17,17 @@ const cartReducer = (state = initialState, action) => {
       state.add(action.payload);
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return state;
+
     case DELETE_SHOPPING_CART:
       state.remove(action.payload);
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return state;
+
     case INCREMENT_ITEM:
       state.incrementCounter(action.payload);
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return state;
+
     case DECREMENT_ITEM:
       state.decrementCounter(action.payload);
       localStorage.setItem("cart", JSON.stringify(state.cart));
