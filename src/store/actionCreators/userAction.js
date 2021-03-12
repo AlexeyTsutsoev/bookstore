@@ -2,7 +2,6 @@ import { SET_USER, SIGN_OUT } from "../actions/types";
 import { checkUser, refreshToken, signIn } from "../../api/user";
 
 export const setUser = (user) => {
-  console.log("setuser");
   return {
     type: SET_USER,
     payload: user,
@@ -29,7 +28,6 @@ export const auth = () => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
   try {
     const response = await signIn(email, password);
-    console.log(response);
     dispatch(setUser(response.data.user));
     localStorage.setItem("accessToken", response.data.token.accessToken);
     localStorage.setItem("refreshToken", response.data.token.refreshToken);
