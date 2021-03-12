@@ -83,7 +83,7 @@ const CommentItem = ({ comment }) => {
     return (
       <Text>
         <div> {comment.user.name}: </div>
-        <div> {comment.text} </div>
+        <div> {value} </div>
       </Text>
     );
   };
