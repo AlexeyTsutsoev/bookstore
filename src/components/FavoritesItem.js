@@ -26,10 +26,9 @@ const ItemName = styled.div`
 `;
 
 const FavoritesItem = ({ onRemove, book }) => {
-  console.log(book);
   return (
     <ItemContainer>
-      <img src={book.cover} />
+      <img src={book.cover ? book.cover : "https://place-hold.it/300x500"} />
       <ItemInfo>
         <ItemName>{book.name}</ItemName>
         <div>{book.author.name}</div>
