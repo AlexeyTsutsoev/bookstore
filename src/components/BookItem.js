@@ -18,8 +18,6 @@ const Book = styled.div`
 
   margin-bottom: 30px;
 
-  transition: background 0.2s linear;
-
   cursor: pointer;
 `;
 
