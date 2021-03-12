@@ -2,14 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import Header from "../../components/Header";
 import { signOut } from "../../store/actionCreators/userAction";
 
 const PageContainer = styled.main`
   width: 100%;
   height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,9 +49,9 @@ const UserPage = () => {
   const outHandler = () => {
     dispatch(signOut());
   };
-  console.log(user);
   return (
     <PageContainer>
+      <Header />
       <PageContent>
         <Photo>
           {user.avatar ? (
@@ -67,7 +65,7 @@ const UserPage = () => {
           <InfoItem>name: {user.name} </InfoItem>
           <InfoItem>email: {user.email} </InfoItem>
           <NavLink to='/favor'>Ваши избранные книги </NavLink>
-          {user.isAdmin ? (
+          {user.role === "admin" ? (
             <NavLink to='/createBook'>Добавить книгу в магазин</NavLink>
           ) : (
             ""
