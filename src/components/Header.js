@@ -1,6 +1,6 @@
-import { IconButton, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import "./styles/style.css";
 import PersonIcon from "@material-ui/icons/Person";
@@ -9,6 +9,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import ClearIcon from "@material-ui/icons/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { setKeyword } from "../store/actionCreators/searchAction";
+import { setCurrentPage } from "../store/actionCreators/booksAction";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -98,7 +99,7 @@ const styleForLink = {
   textDecoration: "none",
 };
 
-const Header = () => {
+const Header = (props) => {
   const [searchVal, setSearchVal] = useState("");
   const isAuth = useSelector((state) => state.user.isAuth);
   const id = useSelector((state) => state.user.user.id);
@@ -121,6 +122,8 @@ const Header = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(setKeyword(searchVal));
+    dispatch(setCurrentPage(1));
+    props.history.push("/");
     setSearchVal("");
   };
 
@@ -190,4 +193,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
