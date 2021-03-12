@@ -46,6 +46,7 @@ const CartFooter = styled.div`
 //NEED REVIEW
 const ShoppingCart = () => {
   const [sum, setSum] = useState(0);
+  //Так можно???
   const [cart, setCart] = useState(
     useSelector((state) => state.shoppingCart.cart)
   );
