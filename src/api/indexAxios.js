@@ -1,35 +1,45 @@
 import axios from "axios";
 import config from "../config";
+import { signOut } from "../store/actionCreators/userAction";
 
-const BASE_URL = config.development.serverAddress;
-
-const getDefaultHeaders = () => ({
-  Accept: "application/json",
-  "Content-type": "application/json",
+const myAxios = axios.create({
+  baseURL: config.serverAddress,
 });
 
-export default async ({
-  method = "GET",
-  baseURL = `${BASE_URL}/`,
-  url = "",
-  params = {},
-  headers = {},
-  data = {},
-}) => {
+export const setToken = (token) => {
+  console.log("setToken >", token);
+  myAxios.defaults.headers.Authorization = `Bearer ${token}`;
+};
+
+setToken(localStorage.getItem("accessToken"));
+
+const refreshToken = async () => {
   try {
-    const response = await axios({
-      method,
-      url: `${baseURL}${url}`,
-      params,
-      headers: {
-        ...getDefaultHeaders(),
-        ...headers,
-      },
-      data,
+    const { accessToken, refreshToken } = await myAxios.post("/auth/refresh", {
+      token: localStorage.getItem("refreshToken"),
     });
-    return response;
-  } catch (error) {
-    console.log(error);
-    throw error.response;
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+  } catch (err) {
+    console.log("here?");
+    signOut();
+    throw err;
   }
 };
+
+myAxios.interceptors.response.use(
+  ({ data }) => data,
+  async (err) => {
+    if (err.response.data.type === "TokenExpiredError") {
+      await refreshToken();
+      const accessToken = localStorage.getItem("accessToken");
+      err.config.headers.Authorization = `Bearer ${accessToken}`;
+
+      return myAxios(err.config);
+    }
+
+    return Promise.reject(err.response);
+  }
+);
+
+export default myAxios;

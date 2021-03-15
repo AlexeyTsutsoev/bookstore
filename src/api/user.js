@@ -1,44 +1,30 @@
-import axios from "./indexAxios";
+import myAxios from "./indexAxios";
 
 const path = "auth/";
 
 export const signUp = (name, email, password, phone) => {
-  return axios({
-    method: "POST",
-    url: path + "sign-up",
-    data: {
-      name,
-      email,
-      password,
-      phone,
-    },
-  });
+  return myAxios.post(`${path}sign-up`, { name, email, password, phone });
 };
 
 export const signIn = (email, password) => {
-  return axios({
-    method: "POST",
-    url: path + "sign-in",
-    data: {
-      email,
-      password,
-    },
-  });
+  return myAxios.post(`${path}sign-in`, { email, password });
 };
 
 export const checkUser = () => {
-  return axios({
-    url: path + "me",
-    headers: { authorization: `Bearer ` + localStorage.getItem("accessToken") },
-  });
+  return myAxios.get(`${path}me`);
 };
 
-export const refreshToken = () => {
-  return axios({
-    method: "POST",
-    url: path + "refresh",
-    headers: {
-      authorization: `Bearer ` + localStorage.getItem("refreshToken"),
-    },
-  });
+export const uploadAvatar = (data, user) => {
+  const accessToken = localStorage.getItem("accessToken");
+  console.log("start req");
+  return myAxios.post(
+    `${path}avatar`,
+    { user, data },
+    {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 };

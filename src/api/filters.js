@@ -1,27 +1,31 @@
-import axios from "./indexAxios";
+import myAxios from "./indexAxios";
 
 const path = "filters/";
 
 export const getAuthorsFromDb = () => {
-  return axios({
-    url: path + "authors",
-  });
+  // return myAxios({
+  //   url: `${parh}authors`, //path + "authors",
+  // });
+  return myAxios.get(`${path}authors`);
 };
 
 export const getPublishersFromDB = () => {
-  return axios({
-    url: path + "publishers",
-  });
+  // return myAxios({
+  //   url: `${path}publishers`, //path + "publishers",
+  // });
+  return myAxios.get(`${path}publishers`);
 };
 
 export const getCategoriesFromDb = () => {
-  return axios({
-    url: path + "categories",
-  });
+  // return myAxios({
+  //   url: `${path}categories`, //path + "categories",
+  // });
+  return myAxios.get(`${path}categories`);
 };
 
 export const getPricesFromDb = () => {
-  return axios({
-    url: path + "price",
-  });
+  // return myAxios({
+  //   url: `${path}price`, //path + "price",
+  // });
+  return myAxios.get(`${path}price`);
 };
