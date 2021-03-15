@@ -17,12 +17,13 @@ setToken(localStorage.getItem("accessToken"));
 
 const refreshToken = async () => {
   try {
-    const { accessToken, refreshToken } = await myAxios.post("/auth/refresh", {
+    const { token } = await myAxios.post("/auth/refresh", {
       token: localStorage.getItem("refreshToken"),
-      user: localStorage.getItem("user"),
+      user: JSON.parse(localStorage.getItem("user")),
     });
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+    console.log(token);
+    localStorage.setItem("accessToken", token.accessToken);
+    localStorage.setItem("refreshToken", token.refreshToken);
   } catch (err) {
     console.log("here?");
     signOut();
@@ -43,7 +44,12 @@ myAxios.interceptors.response.use(
         console.log("after refresh");
       }
       const accessToken = localStorage.getItem("accessToken");
+      console.log("check access from inter", accessToken);
       err.config.headers.Authorization = `Bearer ${accessToken}`;
+
+      console.log("err from inter", err);
+      console.log("err config from inter", err.config);
+      console.log("config headers from inter", err.config.headers);
 
       return myAxios(err.config);
     }

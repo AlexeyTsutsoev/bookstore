@@ -14,17 +14,13 @@ export const checkUser = () => {
   return myAxios.get(`${path}me`);
 };
 
-export const uploadAvatar = (data, user) => {
+export const uploadAvatar = (data) => {
   const accessToken = localStorage.getItem("accessToken");
   console.log("start req");
-  return myAxios.post(
-    `${path}avatar`,
-    { user, data },
-    {
-      headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+  console.log(data);
+  return myAxios.post(`${path}avatar`, data, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
 };

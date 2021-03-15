@@ -11,9 +11,11 @@ const AddToCartBtn = ({ book }) => {
   const checkCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     let result = false;
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].book.id === book.id) {
-        result = true;
+    if (cart) {
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].book.id === book.id) {
+          result = true;
+        }
       }
     }
     setInCart(result);
