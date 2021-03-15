@@ -11,20 +11,8 @@ export const setUser = (user) => {
 export const auth = () => async (dispatch) => {
   try {
     const response = await checkUser();
-    console.log(response);
     dispatch(setUser(response.user));
   } catch (err) {
-    // if (err.data.type === "TokenExpiredError") {
-    //   const refresh = await refreshToken();
-    //   dispatch(setUser(refresh.data.user));
-    //   localStorage.setItem("accessToken", refresh.data.token.accessToken);
-    //   localStorage.setItem("refreshToken", refresh.data.token.refreshToken);
-    // } else {
-    //   console.log("ошибка auth");
-    //   console.log(err.message);
-    // }
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     console.log("ошибка auth");
     console.log(err.message);
   }
