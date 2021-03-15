@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import BookStore from "./pages/BookStore";
 import { useDispatch } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 import { auth } from "./store/actionCreators/userAction";
 import { CircularProgress } from "@material-ui/core";
+import Header from "./components/Header";
 
 function App() {
   const dispatch = useDispatch();
@@ -11,11 +11,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      try {
-        await dispatch(auth());
-      } catch (err) {
-        console.log(err);
-      }
+      await dispatch(auth());
       setIsAuthorized(true);
     })();
   }, []);
@@ -25,9 +21,10 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
+      <Header />
       <BookStore />
-    </BrowserRouter>
+    </>
   );
 }
 
