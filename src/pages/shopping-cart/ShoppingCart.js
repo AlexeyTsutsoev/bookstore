@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/Header";
-import ShoppingItem from "../../components/ShoppingItem";
+import ShoppingItem from "./components/ShoppingItem";
 import { NavLink } from "react-router-dom";
 import {
   decrementItem,
@@ -67,15 +66,6 @@ const ShoppingCart = () => {
     setCart(JSON.parse(localStorage.getItem("cart")));
   };
 
-  const renderEmpty = () => {
-    return (
-      <EmptyContainer>
-        <p>В Вашей корзине нет ни одной книги</p>
-        <NavLink to='/'>Выбрать товар</NavLink>
-      </EmptyContainer>
-    );
-  };
-
   const totalSum = () => {
     let result = 0;
     for (let i = 0; i < cart.length; i++) {
@@ -89,35 +79,35 @@ const ShoppingCart = () => {
     totalSum();
   }, [totalSum]);
 
-  const renderFill = () => {
-    return (
-      <FillContainer>
-        {cart.map((book) => (
-          <ShoppingItem
-            onIncrement={incrementHandler}
-            onDecrement={decrementHandler}
-            onRemove={removeHandler}
-            item={book}
-            key={book.id}
-          />
-        ))}
-        <CartFooter>
-          <div>Сумма покупки:</div>
-          <div>
-            {sum}
-            &#8381;
-          </div>
-        </CartFooter>
-      </FillContainer>
-    );
-  };
-
   return (
     <div className='container'>
-      <Header />
       <h1>Корзина</h1>
       <CartContainer>
-        {cart.length ? renderFill() : renderEmpty()}
+        {cart.length ? (
+          <FillContainer>
+            {cart.map((book) => (
+              <ShoppingItem
+                onIncrement={incrementHandler}
+                onDecrement={decrementHandler}
+                onRemove={removeHandler}
+                item={book}
+                key={book.id}
+              />
+            ))}
+            <CartFooter>
+              <div>Сумма покупки:</div>
+              <div>
+                {sum}
+                &#8381;
+              </div>
+            </CartFooter>
+          </FillContainer>
+        ) : (
+          <EmptyContainer>
+            <p>В Вашей корзине нет ни одной книги</p>
+            <NavLink to='/'>Выбрать товар</NavLink>
+          </EmptyContainer>
+        )}
       </CartContainer>
     </div>
   );

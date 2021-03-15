@@ -1,8 +1,10 @@
 import { TextField, Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { signUp } from "../../api/user";
+import { signIn, signUp } from "../../api/user";
+import { login } from "../../store/actionCreators/userAction";
 
 const RegContainer = styled.div`
   width: 100%;
@@ -49,6 +51,7 @@ const Registration = (props) => {
     "Поле пароля не может быть пустым"
   );
   const [form, setForm] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (nameError || phoneError || emailError || passwordError) {
@@ -118,7 +121,8 @@ const Registration = (props) => {
       signUp(name, email, password, phone)
         .then(() => {
           alert("Пользователь зарегестрирован");
-          props.history.push("/login");
+          dispatch(login(email, password));
+          props.history.push("/");
         })
         .catch(() => alert("Ошибка регистрации"));
     } catch (err) {

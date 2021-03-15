@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import FavoritesItem from "../../components/FavoritesItem";
-import Header from "../../components/Header";
+import FavoritesItem from "./components/FavoritesItem";
 import { deleteFromFavor, getFavoritesFromDb } from "../../api/favorites";
 import { useSelector } from "react-redux";
 
@@ -33,7 +32,7 @@ const Favorites = () => {
 
   const favHandler = async () => {
     const response = await getFavoritesFromDb(userId);
-    setFavorites(response.data.favorites);
+    setFavorites(response.favorites);
   };
 
   useEffect(() => {
@@ -46,33 +45,22 @@ const Favorites = () => {
     deleteFromFavor(userId, id);
   };
 
-  const renderEmpty = () => {
-    return (
-      <EmptyContainer>
-        <p>У вас нет избранных товаров</p>
-        <NavLink to='/'>Выбрать товар</NavLink>
-      </EmptyContainer>
-    );
-  };
-
-  const renderFill = () => {
-    return (
-      <FillContainer>
-        {favorites.map((item) => (
-          <FavoritesItem onRemove={removeFavor} book={item.book} />
-        ))}
-      </FillContainer>
-    );
-  };
-
-  console.log(favorites);
-
   return (
     <div className='container'>
-      <Header />
       <h1>Избранное</h1>
       <FavorContainer>
-        {favorites.length ? renderFill() : renderEmpty()}
+        {favorites.length ? (
+          <FillContainer>
+            {favorites.map((item) => (
+              <FavoritesItem onRemove={removeFavor} book={item.book} />
+            ))}
+          </FillContainer>
+        ) : (
+          <EmptyContainer>
+            <p>У вас нет избранных товаров</p>
+            <NavLink to='/'>Выбрать товар</NavLink>
+          </EmptyContainer>
+        )}
       </FavorContainer>
     </div>
   );

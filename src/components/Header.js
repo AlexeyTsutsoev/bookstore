@@ -2,7 +2,6 @@ import { TextField } from "@material-ui/core";
 import React, { useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import "./styles/style.css";
 import PersonIcon from "@material-ui/icons/Person";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";

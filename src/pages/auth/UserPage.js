@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Header from "../../components/Header";
 import { signOut } from "../../store/actionCreators/userAction";
+import { Button } from "@material-ui/core";
+import { uploadAvatar } from "../../api/user";
 
 const PageContainer = styled.main`
   width: 100%;
@@ -25,10 +26,9 @@ const PageContent = styled.div`
 
 const Photo = styled.div`
   margin-right: 20px;
-
+  display: grid;
   img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
   }
 `;
 
@@ -42,16 +42,37 @@ const InfoItem = styled.div`
   border-bottom: 1px solid black;
 `;
 
+const UploadPhoto = styled.form`
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const UserPage = () => {
+  const [avatar, setAvatar] = useState("");
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const outHandler = () => {
     dispatch(signOut());
   };
+
+  const changeHandler = (event) => {
+    setAvatar(event.target.files[0]);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const data = new FormData();
+    data.append("avatar", avatar);
+    console.log(avatar);
+    console.log(data);
+    uploadAvatar(data);
+  };
+
   return (
     <PageContainer>
-      <Header />
       <PageContent>
         <Photo>
           {user.avatar ? (
@@ -59,6 +80,12 @@ const UserPage = () => {
           ) : (
             <img src={"https://place-hold.it/200x200"} />
           )}
+          <UploadPhoto onSubmit={submitHandler}>
+            <input onChange={changeHandler} type='file' name='avatar' />
+            <Button fullWidth type='submit' color='primary' variant='contained'>
+              Отправить фото
+            </Button>
+          </UploadPhoto>
         </Photo>
         <UserInfo>
           <InfoItem>id: {user.id} </InfoItem>

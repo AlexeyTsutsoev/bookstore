@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import AddToCartBtn from "./AddtoCartBtn";
+import AddToCartBtn from "../../../components/AddtoCartBtn";
 
 const ItemContainer = styled.div`
   display: flex;

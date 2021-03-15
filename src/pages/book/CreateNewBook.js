@@ -83,17 +83,17 @@ const CreateNewBook = () => {
   //получение информации из БД
   const getCategoriesAPI = async () => {
     const categories = await getCategoriesFromDb();
-    setCategoriesList(categories.data);
+    setCategoriesList(categories);
   };
 
   const getPublishersAPI = async () => {
     const publishers = await getPublishersFromDB();
-    setPublishersList(publishers.data);
+    setPublishersList(publishers);
   };
 
   const getAuthorsAPI = async () => {
     const authors = await getAuthorsFromDb();
-    setAuthorsList(authors.data);
+    setAuthorsList(authors);
   };
   //-------------------------------------
 
@@ -181,33 +181,31 @@ const CreateNewBook = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(authorId);
-    console.log(publisherId);
+    let form = new FormData(this);
 
-    let categoryArr = [];
-    for (let key in categoriesId) {
-      if (categoriesId[key]) categoryArr.push(parseInt(key));
-    }
+    console.log(form);
 
-    const response = addBookToDb(userId, {
-      name,
-      authorId,
-      publisherId,
-      discription,
-      cover,
-      price,
-      categories: categoryArr,
-    });
+    //   let categoryArr = [];
+    //   for (let key in categoriesId) {
+    //     if (categoriesId[key]) categoryArr.push(parseInt(key));
+    //   }
 
-    console.log(response);
+    //   const response = addBookToDb(userId, {
+    //     name,
+    //     authorId,
+    //     publisherId,
+    //     discription,
+    //     cover,
+    //     price,
+    //     categories: categoryArr,
+    //   });
   };
 
   return (
     <Container>
-      <Header />
       <h1>Создание книги</h1>
       <Main>
-        <Form onSubmit={submitHandler}>
+        <Form id='form' onSubmit={submitHandler}>
           <InputContainer>
             <TextField
               fullWidth
@@ -238,6 +236,7 @@ const CreateNewBook = () => {
               label='ссылка на обложку'
               variant='outlined'
             />
+            <input type='file' name='picture' accept='image/*' />
           </InputContainer>
 
           <InputContainer>

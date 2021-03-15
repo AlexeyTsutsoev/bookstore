@@ -1,6 +1,5 @@
 import React from "react";
 import Main from "./main/Main";
-import "../components/styles/style.css";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Login from "./auth/Login";
 import Registration from "./auth/Registration";
@@ -14,6 +13,7 @@ import CreateNewBook from "./book/CreateNewBook";
 
 const BookStore = () => {
   const user = useSelector((state) => state.user.user);
+
   return (
     <Switch>
       <Route path='/login' component={Login} />

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import "./styles/style.css";
-import Title from "./Title";
+import Title from "../../../components/Title";
 
 import { Slider } from "@material-ui/core";
-import { getPricesFromDb } from "../api/filters";
-import { setMinPrice, setMaxPrice } from "../store/actionCreators/priceAction";
+import { getPricesFromDb } from "../../../api/filters";
+import {
+  setMinPrice,
+  setMaxPrice,
+} from "../../../store/actionCreators/priceAction";
 
 const PriceContent = styled.div`
   display: flex;
@@ -34,9 +36,9 @@ const Price = ({ title }) => {
 
   const getPricesAPI = async () => {
     const prices = await getPricesFromDb();
-    setMinValue(prices.data.minPrice);
-    setMaxValue(prices.data.maxPrice);
-    setSlidersValues([prices.data.minPrice, prices.data.maxPrice]);
+    setMinValue(prices.minPrice);
+    setMaxValue(prices.maxPrice);
+    setSlidersValues([prices.minPrice, prices.maxPrice]);
   };
 
   useEffect(() => {

@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import "./styles/style.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { NavLink } from "react-router-dom";
-import { addToFavorAtDb, getFavoritesFromDb } from "../api/favorites";
-import AddToCartBtn from "./AddtoCartBtn";
+import { addToFavorAtDb, getFavoritesFromDb } from "../../../api/favorites";
+import AddToCartBtn from "../../../components/AddtoCartBtn";
 
 const Book = styled.div`
-  padding: 30px;
-  padding-bottom: 0;
-
-  width: 30%;
-
-  background-color: white;
-
-  margin-bottom: 30px;
-
   cursor: pointer;
 `;
 
@@ -55,7 +45,7 @@ const BookItem = ({ book }) => {
   const favorHandler = async () => {
     if (isAuth) {
       const response = await getFavoritesFromDb(userId);
-      const favoritesArr = response.data.favorites;
+      const favoritesArr = response.favorites;
       for (let i = 0; i < favoritesArr.length; i++) {
         if (favoritesArr[i].book_id === book.id) {
           return true;
@@ -76,14 +66,6 @@ const BookItem = ({ book }) => {
     }
   };
 
-  const renderFavor = () => {
-    return isFavor ? (
-      <FavoriteIcon />
-    ) : (
-      <FavoriteBorderIcon onClick={() => addToFav()} />
-    );
-  };
-
   return (
     <Book>
       <NavLink to={path}>
@@ -97,7 +79,11 @@ const BookItem = ({ book }) => {
       {isAuth && (
         <Buttons>
           <AddToCartBtn book={book} />
-          {renderFavor()}
+          {isFavor ? (
+            <FavoriteIcon />
+          ) : (
+            <FavoriteBorderIcon onClick={() => addToFav()} />
+          )}
         </Buttons>
       )}
     </Book>

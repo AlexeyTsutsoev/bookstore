@@ -1,13 +1,16 @@
 import { Button, TextareaAutosize } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getOneBookFromDb } from "../../api/books";
-import Header from "../../components/Header";
-import { createComment, getCommentsFromDb } from "../../api/comments";
-import Comments from "../../components/Comments";
-import BookPageItem from "../../components/BookPageItem";
+import {
+  createComment,
+  deleteComment,
+  getCommentsFromDb,
+} from "../../api/comments";
+import BookPageItem from "./components/BookPageItem";
 import AddToCartBtn from "../../components/AddtoCartBtn";
+import CommentItem from "./components/CommentItem";
 
 const Buttons = styled.div`
   width: 100%;
@@ -72,12 +75,12 @@ const Book = (props) => {
 
   const getBookAPI = async () => {
     const book = await getOneBookFromDb(bookId);
-    setBook(book.data);
+    setBook(book);
   };
 
   const getCommentsAPI = async () => {
     const comments = await getCommentsFromDb(bookId);
-    setComments(comments.data);
+    setComments(comments);
   };
 
   useEffect(() => {
@@ -90,10 +93,13 @@ const Book = (props) => {
     await createComment(bookId, currentUser, comment);
     setComment("");
   };
+  const deleteHandler = (id) => {
+    deleteComment(id);
+    setComments(comments.filter((comment) => comment.id !== id));
+  };
 
   return (
     <div className='container'>
-      <Header />
       <BookPageItem book={book} />
       {isAuth && (
         <Buttons>
@@ -116,7 +122,17 @@ const Book = (props) => {
             </Button>
           </Form>
         )}
-        {comments.length ? <Comments comments={comments} /> : emptyComments}
+        {comments.length
+          ? comments.map((comment) => {
+              return (
+                <CommentItem
+                  onDelete={deleteHandler}
+                  key={comment.id}
+                  comment={comment}
+                />
+              );
+            })
+          : emptyComments}
       </CommentBlock>
     </div>
   );

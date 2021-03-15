@@ -1,17 +1,12 @@
-class cartCollection {
+class CartCollection {
   constructor(array) {
     this.cart = array;
   }
 
   add(book) {
-    console.log("start add");
     let isExist = false;
     for (let i = 0; i < this.cart.length; i++) {
-      console.log(`start for ${i}`);
-      console.log(book.id);
-      console.log(this.cart);
       if (this.cart[i].book.id === book.id) {
-        console.log("start if");
         isExist = true;
         this.cart[i].count++;
         break;
@@ -46,10 +41,12 @@ class cartCollection {
         if (this.cart[i].count > 1) {
           this.cart[i].count--;
           break;
-        } else this.remove(id);
+        } else {
+          this.remove(id);
+        }
       }
     }
   }
 }
 
-export default cartCollection;
+export default CartCollection;

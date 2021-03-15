@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { setCurrentPage } from "../store/actionCreators/booksAction";
+import { setCurrentPage } from "../../../store/actionCreators/booksAction";
 
 const PagesContainer = styled.div`
   display: flex;

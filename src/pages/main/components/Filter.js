@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import "./styles/style.css";
 import FilterItem from "./FilterItem";
 import styled from "styled-components";
-import SearchInput from "./SearchInput";
-import Title from "./Title";
+import SearchInput from "../../../components/SearchInput";
+import Title from "../../../components/Title";
 import { Button } from "@material-ui/core";
 import {
   addAuthorFilter,
   removeAuthorFilter,
-} from "../store/actionCreators/authorAction";
+} from "../../../store/actionCreators/authorAction";
 import {
   addPublisherFilter,
   removePublisherFilter,
-} from "../store/actionCreators/publisherAction";
+} from "../../../store/actionCreators/publisherAction";
 import {
   addCategoryFilter,
   removeCategoryFilter,
-} from "../store/actionCreators/categoryAction";
+} from "../../../store/actionCreators/categoryAction";
 
 const FilterContainer = styled.div`
   display: flex;

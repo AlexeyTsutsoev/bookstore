@@ -55,12 +55,12 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    try {
-      dispatch(login(email, password));
-      props.history.push("/");
-    } catch (err) {
-      console.log(err.message);
-    }
+    dispatch(login(email, password))
+      .then(() => props.history.push("/"))
+      .catch(() => {
+        alert("whats do wrong");
+        setPassword("");
+      });
   };
 
   const emailHandler = (event) => {

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import "./styles/style.css";
-
 const Item = styled.div`
   line-height: normal;
   height: auto;

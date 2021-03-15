@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, TextareaAutosize, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { deleteComment, updateComment } from "../api/comments";
+import { deleteComment, updateComment } from "../../../api/comments";
 
 const CommentContainer = styled.div`
   border: 1px solid black;
@@ -39,16 +39,12 @@ const BtnContainer = styled.div`
   justify-content: space-between;
 `;
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ onDelete, comment }) => {
   const [value, setValue] = useState(comment.text);
   const [isInput, setInput] = useState(false);
   const currentuser = useSelector((state) => state.user.user.id);
   const commentUser = comment.user.id;
   const isAuthor = currentuser === commentUser;
-
-  const onDelete = () => {
-    deleteComment(comment.id);
-  };
 
   const onUpdate = () => {
     updateComment(comment.id, value);
@@ -105,7 +101,11 @@ const CommentItem = ({ comment }) => {
           >
             Изменить
           </Button>
-          <Button onClick={onDelete} variant='contained' color='secondary'>
+          <Button
+            onClick={() => onDelete(comment.id)}
+            variant='contained'
+            color='secondary'
+          >
             Удалить
           </Button>
         </BtnContainer>

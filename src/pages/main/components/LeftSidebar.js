@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Price from "./Price";
 import Filter from "./Filter";
-import "./styles/style.css";
 import {
   getAuthorsFromDb,
   getCategoriesFromDb,
   getPublishersFromDB,
-} from "../api/filters";
+} from "../../../api/filters";
 
 const SideBarContainer = styled.div`
   grid-column-start: 1;
@@ -21,17 +20,17 @@ const LeftSidebar = () => {
 
   const getCategoriesAPI = async () => {
     const categories = await getCategoriesFromDb();
-    setCategories(categories.data);
+    setCategories(categories);
   };
 
   const getPublishersAPI = async () => {
     const publishers = await getPublishersFromDB();
-    setPublishers(publishers.data);
+    setPublishers(publishers);
   };
 
   const getAuthorsAPI = async () => {
     const authors = await getAuthorsFromDb();
-    setAuthors(authors.data);
+    setAuthors(authors);
   };
 
   useEffect(() => {

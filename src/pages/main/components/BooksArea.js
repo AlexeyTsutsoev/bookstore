@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { loadBook } from "../store/actionCreators/booksAction";
+import { loadBook } from "../../../store/actionCreators/booksAction";
 import BookItem from "./BookItem";
 import Pages from "./Pages";
-import "./styles/style.css";
 
 const Container = styled.div`
   grid-column-start: 4;
@@ -19,9 +18,11 @@ const Container = styled.div`
 const BooksContainer = styled.div`
   max-width: 100%;
 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
 `;
 
 const BooksArea = () => {

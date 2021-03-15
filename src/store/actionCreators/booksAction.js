@@ -25,7 +25,7 @@ export const loadBook = ({
       prices,
       keyword,
     });
-    dispatch(initializeBooks(response.data.rows, response.data.count));
+    dispatch(initializeBooks(response.rows, response.count));
   } catch (err) {
     console.log(err.message);
     console.log("ошибка запроса");

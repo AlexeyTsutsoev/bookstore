@@ -1,5 +1,5 @@
 //NEED REVIEW
-import cartCollection from "../../utils/cartCollection";
+import CartCollection from "../../utils/CartCollection";
 import {
   ADD_SHOPPING_CART,
   DECREMENT_ITEM,
@@ -7,7 +7,7 @@ import {
   INCREMENT_ITEM,
 } from "../actions/types";
 
-const initialState = new cartCollection(
+const initialState = new CartCollection(
   JSON.parse(localStorage.getItem("cart")) || []
 );
 
