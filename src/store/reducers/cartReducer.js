@@ -1,4 +1,3 @@
-//NEED REVIEW
 import CartCollection from "../../utils/CartCollection";
 import {
   ADD_SHOPPING_CART,

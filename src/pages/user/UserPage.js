@@ -1,53 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 import { signOut } from "../../store/actionCreators/userAction";
 import { Button } from "@material-ui/core";
 import { uploadAvatar } from "../../api/user";
-
-const PageContainer = styled.main`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-`;
-
-const PageContent = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid black;
-`;
-
-const Photo = styled.div`
-  margin-right: 20px;
-  display: grid;
-  img {
-    width: 100%;
-  }
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const InfoItem = styled.div`
-  border-bottom: 1px solid black;
-`;
-
-const UploadPhoto = styled.form`
-  margin-top: 10px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
+import {
+  InfoItem,
+  PageContainer,
+  PageContent,
+  Photo,
+  UploadPhoto,
+  UserInfo,
+} from "./styles/UserPage.style";
 
 const UserPage = () => {
   const [avatar, setAvatar] = useState("");

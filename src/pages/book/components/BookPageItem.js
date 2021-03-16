@@ -1,38 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: rows;
-`;
-
-const Item = styled.div`
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  max-width: 30%;
-  max-height: 50%;
-
-  img {
-    width: 300px;
-    height: 500px;
-  }
-`;
-
-const Info = styled.div`
-  border-bottom: 1px solid gray;
-  font-size: 20px;
-  height: auto;
-`;
-
-const Title = styled.p`
-  margin: 0;
-  color: gray;
-  font-size: 15px;
-  opacity: 0.5;
-`;
+import { Info, Item, Section } from "../styles/BookPageItem.style";
+import Title from "../../../components/Title";
 
 const BookPageItem = ({ book }) => {
   return (
@@ -42,19 +10,19 @@ const BookPageItem = ({ book }) => {
       </Item>
       <Item>
         <Info>
-          <Title> Наименование: </Title>
+          <Title title={"Наименование: "} />
           {book.name}
         </Info>
         <Info>
-          <Title>Автор: </Title>
+          <Title title={"Автор: "} />
           {book.author.name}
         </Info>
         <Info>
-          <Title>Издательство:</Title>
+          <Title title={"Издательство: "} />
           {book.publisher.name}
         </Info>
         <Info>
-          <Title>Категории:</Title>
+          <Title title={"Категории: "} />
           {book.categories.length
             ? book.categories.map((i) => {
                 return <div key={i.id}>{i.name}</div>;
@@ -62,11 +30,11 @@ const BookPageItem = ({ book }) => {
             : "Отсутсвуют"}
         </Info>
         <Info>
-          <Title>Описание:</Title>
+          <Title title={"Описание: "} />
           {book.discription}
         </Info>
         <Info>
-          <Title>Цена: </Title>
+          <Title title={"Стоимость: "} />
           {book.price}&#8381;
         </Info>
       </Item>

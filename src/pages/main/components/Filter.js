@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FilterItem from "./FilterItem";
-import styled from "styled-components";
 import SearchInput from "../../../components/SearchInput";
 import Title from "../../../components/Title";
 import { Button } from "@material-ui/core";
@@ -16,12 +15,7 @@ import {
   addCategoryFilter,
   removeCategoryFilter,
 } from "../../../store/actionCreators/categoryAction";
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-`;
+import { FilterContainer } from "../styles/Filter.style";
 
 const Filter = ({ items, title }) => {
   const [showAll, setShowAll] = useState(false);

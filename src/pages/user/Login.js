@@ -2,28 +2,8 @@ import { TextField, Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 import { login } from "../../store/actionCreators/userAction";
-
-const LoginContainer = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Form = styled.form`
-  width: 40%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-bottom: 20px;
-`;
+import { Form, LoginContainer } from "./styles/Login.style";
 
 const delimeter = {
   marginBottom: "20px",

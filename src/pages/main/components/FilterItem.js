@@ -1,22 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
-const Item = styled.div`
-  line-height: normal;
-  height: auto;
-  font-size: 14px;
-  margin-bottom: 5px;
-`;
-
-const Action = styled.a`
-  color: #333333;
-  text-decoration: none;
-  margin: 10px;
-  margin-left: 0;
-  cursor: pointer;
-
-  transition: color 0.2s linear;
-`;
+import { Action, Item } from "../styles/FilterItem.style";
 
 const FilterItem = ({ value, methods }) => {
   const [isActive, setActive] = useState(false);

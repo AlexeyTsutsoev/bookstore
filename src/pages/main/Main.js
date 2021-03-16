@@ -1,21 +1,14 @@
 import React from "react";
 import LeftSidebar from "./components/LeftSidebar";
 import BooksArea from "./components/BooksArea";
-import styled from "styled-components";
-
-const MainContainer = styled.main`
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-`;
+import MainContainer from "./styles/Main.style";
 
 const Main = () => {
   return (
-    <div className='container'>
-      <MainContainer>
-        <LeftSidebar />
-        <BooksArea />
-      </MainContainer>
-    </div>
+    <MainContainer>
+      <LeftSidebar />
+      <BooksArea />
+    </MainContainer>
   );
 };
 

@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import FavoritesItem from "./components/FavoritesItem";
 import { deleteFromFavor, getFavoritesFromDb } from "../../api/favorites";
 import { useSelector } from "react-redux";
-
-const FavorContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const EmptyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FillContainer = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 20px;
-`;
+import {
+  EmptyContainer,
+  FavorContainer,
+  FillContainer,
+} from "./styles/Favorites.style";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);

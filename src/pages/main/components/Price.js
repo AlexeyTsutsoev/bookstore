@@ -1,32 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import Title from "../../../components/Title";
-
 import { Slider } from "@material-ui/core";
 import { getPricesFromDb } from "../../../api/filters";
 import {
   setMinPrice,
   setMaxPrice,
 } from "../../../store/actionCreators/priceAction";
-
-const PriceContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const FilterPrice = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const PriceInput = styled.input`
-  width: 100%;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-`;
+import { FilterPrice, PriceContent, PriceInput } from "../styles/Price.style";
 
 const Price = ({ title }) => {
   const [minValue, setMinValue] = useState(50);

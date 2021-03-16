@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Price from "./Price";
 import Filter from "./Filter";
 import {
@@ -7,11 +6,7 @@ import {
   getCategoriesFromDb,
   getPublishersFromDB,
 } from "../../../api/filters";
-
-const SideBarContainer = styled.div`
-  grid-column-start: 1;
-  grid-column-end: 3;
-`;
+import { SideBarContainer } from "../styles/LeftSideBar.style";
 
 const LeftSidebar = () => {
   const [authors, setAuthors] = useState([]);

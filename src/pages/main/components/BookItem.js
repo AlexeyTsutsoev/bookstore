@@ -1,40 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { NavLink } from "react-router-dom";
 import { addToFavorAtDb, getFavoritesFromDb } from "../../../api/favorites";
 import AddToCartBtn from "../../../components/AddtoCartBtn";
-
-const Book = styled.div`
-  cursor: pointer;
-`;
-
-const BookImg = styled.img`
-  width: 100%;
-  height: 70%;
-`;
-
-const BookAuthor = styled.div`
-  color: #a0a0a0;
-  font-size: 15px;
-`;
-
-const BookName = styled.div``;
-
-const BookPrice = styled.div`
-  font-size: 25px;
-  color: #eb5757;
-  font-weight: lighter;
-`;
-
-const Buttons = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import {
+  Book,
+  BookAuthor,
+  BookImg,
+  BookName,
+  BookPrice,
+  Buttons,
+} from "../styles/BookItem.style";
 
 const BookItem = ({ book }) => {
   const [isFavor, setFavor] = useState(false);

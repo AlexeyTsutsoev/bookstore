@@ -13,40 +13,15 @@ import {
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import { addBookToDb } from "../../api/books";
 import {
   getAuthorsFromDb,
   getCategoriesFromDb,
   getPublishersFromDB,
 } from "../../api/filters";
-import Header from "../../components/Header";
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Main = styled.main`
-  margin: 50px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const InputContainer = styled.div`
-  margin: 20px;
-`;
+import { Form } from "../../components/styles/Header.style";
+import Main from "../main/Main";
+import { Container, InputContainer } from "./styles/CreateNewBook.style";
 
 //NEED REVIEW
 

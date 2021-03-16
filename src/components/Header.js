@@ -1,7 +1,6 @@
 import { TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
@@ -9,89 +8,19 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { setKeyword } from "../store/actionCreators/searchAction";
 import { setCurrentPage } from "../store/actionCreators/booksAction";
-
-const HeaderContainer = styled.header`
-  width: 100%;
-  padding: 30px;
-`;
-
-const TopLine = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TopLineColumn = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TopLineLink = styled.a`
-  color: #333333;
-  text-decoration: none;
-  margin: 10px;
-  margin-left: 0;
-
-  transition: color 0.2s linear;
-  &:last-child {
-    margin-right: 0;
-  }
-`;
-
-const MainLine = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-`;
-
-const MainLineLogo = styled.div`
-  grid-column-start: 1;
-  grid-column-end: 2;
-
-  grid-row-start: 2;
-
-  color: #333;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 30px;
-  font-weight: bold;
-`;
-
-const FormContainer = styled.div`
-  grid-column-start: 3;
-  grid-column-end: 7;
-
-  grid-row-start: 2;
-`;
-
-const Form = styled.form`
-  width: 100%;
-  height: 100%;
-`;
-
-const Icons = styled.div`
-  grid-column-start: 7;
-  grid-column-end: 9;
-
-  grid-row-start: 2;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-const IconItem = styled.button`
-  background-color: white;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  padding: 0;
-  margin-left: 10px;
-
-  cursor: pointer;
-`;
+import {
+  Form,
+  FormContainer,
+  HeaderContainer,
+  IconItem,
+  Icons,
+  MainLine,
+  MainLineLogo,
+  ShoppingCounter,
+  TopLine,
+  TopLineColumn,
+  TopLineLink,
+} from "./styles/Header.style";
 
 const styleForLink = {
   color: "black",
@@ -102,21 +31,11 @@ const Header = (props) => {
   const [searchVal, setSearchVal] = useState("");
   const isAuth = useSelector((state) => state.user.isAuth);
   const id = useSelector((state) => state.user.user.id);
+  const path = `/user/${id}`;
   const search = useSelector((state) => state.search);
   const dispatch = useDispatch();
-
-  const userLink = () => {
-    const path = `/user/${id}`;
-    return isAuth ? (
-      <NavLink to={path} activeStyle={styleForLink}>
-        <PersonIcon />
-      </NavLink>
-    ) : (
-      <NavLink to='/login' activeStyle={styleForLink}>
-        <PersonIcon />
-      </NavLink>
-    );
-  };
+  const cartLenght = useSelector((state) => state.shoppingCart.cart.length);
+  const [counter, setCounter] = useState(cartLenght);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -130,64 +49,74 @@ const Header = (props) => {
     dispatch(setKeyword(""));
   };
 
+  useEffect(() => {
+    setCounter(cartLenght);
+  }, [cartLenght]);
+
   return (
     <HeaderContainer>
-      <div className='container'>
-        <TopLine>
-          <TopLineColumn>
-            <TopLineLink href='#'>Ваш город Москва</TopLineLink>
-            <TopLineLink href='#'>Адреса магазинов</TopLineLink>
-          </TopLineColumn>
-          <TopLineColumn>
-            <TopLineLink href='#'>Блог</TopLineLink>
-            <TopLineLink href='#'>Доставка</TopLineLink>
-            <TopLineLink href='#'>8-800-000-00-00</TopLineLink>
-          </TopLineColumn>
-        </TopLine>
-        <MainLine>
-          <MainLineLogo>
-            <NavLink to='/' activeStyle={styleForLink}>
-              bookstore
-            </NavLink>
-          </MainLineLogo>
-          <FormContainer>
-            <Form onSubmit={submitHandler}>
-              <TextField
-                fullWidth={true}
-                id='outlined-basic'
-                label='Поиск...'
-                variant='outlined'
-                value={searchVal}
-                onChange={(event) => setSearchVal(event.target.value)}
-              />
-            </Form>
-            {search && (
-              <div>
-                Результаты поиска по запросу:{search}
-                <ClearIcon
-                  onClick={clearSearch}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
+      <TopLine>
+        <TopLineColumn>
+          <TopLineLink href='#'>Ваш город Москва</TopLineLink>
+          <TopLineLink href='#'>Адреса магазинов</TopLineLink>
+        </TopLineColumn>
+        <TopLineColumn>
+          <TopLineLink href='#'>Блог</TopLineLink>
+          <TopLineLink href='#'>Доставка</TopLineLink>
+          <TopLineLink href='#'>8-800-000-00-00</TopLineLink>
+        </TopLineColumn>
+      </TopLine>
+      <MainLine>
+        <MainLineLogo>
+          <NavLink to='/' activeStyle={styleForLink}>
+            bookstore
+          </NavLink>
+        </MainLineLogo>
+        <FormContainer>
+          <Form onSubmit={submitHandler}>
+            <TextField
+              fullWidth={true}
+              id='outlined-basic'
+              label='Поиск...'
+              variant='outlined'
+              value={searchVal}
+              onChange={(event) => setSearchVal(event.target.value)}
+            />
+          </Form>
+          {search && (
+            <div>
+              Результаты поиска по запросу:{search}
+              <ClearIcon onClick={clearSearch} style={{ cursor: "pointer" }} />
+            </div>
+          )}
+        </FormContainer>
+        <Icons>
+          <IconItem>
+            {isAuth ? (
+              <NavLink to={path} activeStyle={styleForLink}>
+                <PersonIcon />
+              </NavLink>
+            ) : (
+              <NavLink to='/login' activeStyle={styleForLink}>
+                <PersonIcon />
+              </NavLink>
             )}
-          </FormContainer>
-          <Icons>
-            <IconItem>{userLink()}</IconItem>
+          </IconItem>
 
-            <IconItem>
-              <NavLink to='/favor' activeStyle={styleForLink}>
-                <FavoriteIcon />
-              </NavLink>
-            </IconItem>
+          <IconItem>
+            <NavLink to='/favor' activeStyle={styleForLink}>
+              <FavoriteIcon />
+            </NavLink>
+          </IconItem>
 
-            <IconItem>
-              <NavLink to='/shopping-cart' activeStyle={styleForLink}>
-                <ShoppingBasketIcon />
-              </NavLink>
-            </IconItem>
-          </Icons>
-        </MainLine>
-      </div>
+          <IconItem>
+            <NavLink to='/shopping-cart' activeStyle={styleForLink}>
+              <ShoppingBasketIcon />
+            </NavLink>
+            <ShoppingCounter>{counter}</ShoppingCounter>
+          </IconItem>
+        </Icons>
+      </MainLine>
     </HeaderContainer>
   );
 };

@@ -20,17 +20,7 @@ export const getOneBookFromDb = (id) => {
   return myAxios.get(`${path}${id}`);
 };
 
-export const addBookToDb = (
-  id,
-  data
-  // { name, authorId, publisherId, discription, cover, price, categories }
-) => {
+export const addBookToDb = (id, data) => {
   const config = { userid: id, "content-type": "multipart/form-data" };
-  console.log(data);
-  return myAxios.post(
-    `${path}add`,
-    // { name, authorId, publisherId, discription, cover, price, categories },
-    data,
-    { headers: config }
-  );
+  return myAxios.post(`${path}add`, data, { headers: config });
 };

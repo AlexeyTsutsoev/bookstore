@@ -1,8 +1,4 @@
-import {
-  INITIALIZATION_BOOKS,
-  SET_CURRENT_BOOK,
-  SET_CURRENT_PAGE,
-} from "../actions/types";
+import { INITIALIZATION_BOOKS, SET_CURRENT_PAGE } from "../actions/types";
 
 const initialState = {
   books: [],

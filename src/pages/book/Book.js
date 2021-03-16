@@ -1,7 +1,6 @@
-import { Button, TextareaAutosize } from "@material-ui/core";
+import { Button, CircularProgress, TextareaAutosize } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import { getOneBookFromDb } from "../../api/books";
 import {
   createComment,
@@ -11,31 +10,8 @@ import {
 import BookPageItem from "./components/BookPageItem";
 import AddToCartBtn from "../../components/AddtoCartBtn";
 import CommentItem from "./components/CommentItem";
-
-const Buttons = styled.div`
-  width: 100%;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  width: 80%;
-`;
-
-const CommentBlock = styled.section`
-  margin: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+import { Buttons, CommentBlock } from "./styles/Book.style";
+import { Form } from "../../components/styles/Header.style";
 
 const Book = (props) => {
   const emptyComments = "Тут будут комментарии...";
@@ -44,34 +20,7 @@ const Book = (props) => {
   const currentUser = useSelector((state) => state.user.user.id);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  //plug for test
-  const [book, setBook] = useState({
-    id: 1,
-    name: "Властелин Колец",
-    price: 3000,
-    discription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cover:
-      "https://img4.labirint.ru/rc/f83cb08bb81fd35fae11b71c0dd1bd1c/220x340/books4/35638/cover.jpg?1280394613",
-    author: {
-      id: 1,
-      name: "Джон Р.Р. Толкин",
-    },
-    publisher: {
-      id: 1,
-      name: "ACT",
-    },
-    categories: [
-      {
-        id: 1,
-        name: "Бестселлеры",
-      },
-      {
-        id: 3,
-        name: "Художественная литература",
-      },
-    ],
-  });
+  const [book, setBook] = useState(null);
 
   const getBookAPI = async () => {
     const book = await getOneBookFromDb(bookId);
@@ -99,8 +48,8 @@ const Book = (props) => {
   };
 
   return (
-    <div className='container'>
-      <BookPageItem book={book} />
+    <div>
+      {book ? <BookPageItem book={book} /> : <CircularProgress />}
       {isAuth && (
         <Buttons>
           <AddToCartBtn book={book} />

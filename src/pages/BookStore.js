@@ -1,12 +1,12 @@
 import React from "react";
 import Main from "./main/Main";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Login from "./auth/Login";
-import Registration from "./auth/Registration";
+import Login from "./user/Login";
+import Registration from "./user/Registration";
 import ShoppingCart from "./shopping-cart/ShoppingCart";
 import Favorites from "./favorites/Favorites";
 import Book from "./book/Book";
-import UserPage from "./auth/UserPage";
+import UserPage from "./user/UserPage";
 import ProtectedRouter from "../utils/ProtectedRouter";
 import { useSelector } from "react-redux";
 import CreateNewBook from "./book/CreateNewBook";

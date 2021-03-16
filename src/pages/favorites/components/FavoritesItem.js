@@ -1,29 +1,11 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import styled from "styled-components";
 import AddToCartBtn from "../../../components/AddtoCartBtn";
-
-const ItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid gray;
-  height: 200px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-`;
-
-const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ItemName = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-`;
+import {
+  ItemContainer,
+  ItemInfo,
+  ItemName,
+} from "../styles/FavoritesItem.style";
 
 const FavoritesItem = ({ onRemove, book }) => {
   return (
