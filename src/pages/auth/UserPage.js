@@ -65,9 +65,11 @@ const UserPage = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const data = new FormData();
+    //await?
     await data.append("avatar", avatar);
-    console.log(data.get("avatar"));
-    uploadAvatar(data);
+    uploadAvatar(data, user).then(() => {
+      setAvatar("");
+    });
   };
 
   return (
@@ -79,7 +81,7 @@ const UserPage = () => {
           ) : (
             <img src={"https://place-hold.it/200x200"} />
           )}
-          <UploadPhoto encType='multipart/form-data' onSubmit={submitHandler}>
+          <UploadPhoto onSubmit={submitHandler}>
             <input onChange={changeHandler} type='file' name='avatar' />
             <Button fullWidth type='submit' color='primary' variant='contained'>
               Отправить фото

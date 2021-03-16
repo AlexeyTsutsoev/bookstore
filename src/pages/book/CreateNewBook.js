@@ -50,7 +50,7 @@ const InputContainer = styled.div`
 
 //NEED REVIEW
 
-const CreateNewBook = () => {
+const CreateNewBook = (props) => {
   const userId = useSelector((state) => state.user.user.id);
   //Errors
   const [nameDirty, setNameDirty] = useState(false);
@@ -159,7 +159,7 @@ const CreateNewBook = () => {
   };
 
   const coverHandler = (event) => {
-    setCover(event.target.value);
+    setCover(event.target.files[0]);
   };
   //------------------------------------------------
 
@@ -179,33 +179,40 @@ const CreateNewBook = () => {
   };
   //-------------------------------------------------
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    let form = new FormData(this);
+    const form = new FormData();
+    //await?
+    await form.append("name", name);
+    await form.append("authorId", authorId);
+    await form.append("publisherId", publisherId);
+    await form.append("discription", discription);
+    await form.append("cover", cover);
+    await form.append("price", price);
+    console.log(form.get("cover"));
 
-    console.log(form);
+    let categoryArr = [];
+    for (let key in categoriesId) {
+      if (categoriesId[key]) categoryArr.push(parseInt(key));
+    }
 
-    //   let categoryArr = [];
-    //   for (let key in categoriesId) {
-    //     if (categoriesId[key]) categoryArr.push(parseInt(key));
-    //   }
+    await form.append("categories", categoryArr);
 
-    //   const response = addBookToDb(userId, {
-    //     name,
-    //     authorId,
-    //     publisherId,
-    //     discription,
-    //     cover,
-    //     price,
-    //     categories: categoryArr,
-    //   });
+    addBookToDb(userId, form)
+      .then(() => {
+        alert("book add to DB");
+        props.history.push(`/user/${userId}`);
+      })
+      .catch((err) => {
+        alert(err.data.message);
+      });
   };
 
   return (
     <Container>
       <h1>Создание книги</h1>
       <Main>
-        <Form id='form' onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
           <InputContainer>
             <TextField
               fullWidth
@@ -230,13 +237,7 @@ const CreateNewBook = () => {
           </InputContainer>
 
           <InputContainer>
-            <TextField
-              fullWidth
-              onChange={coverHandler}
-              label='ссылка на обложку'
-              variant='outlined'
-            />
-            <input type='file' name='picture' accept='image/*' />
+            <input onChange={coverHandler} type='file' name='cover' />
           </InputContainer>
 
           <InputContainer>
