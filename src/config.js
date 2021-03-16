@@ -7,8 +7,8 @@ const config = {
     serverAddress: "http://localhost:8080/api/",
   },
   production: {
-    currentAddress: "http://localhost:3000",
-    serverAddress: "http://localhost:8080/api/",
+    currentAddress: "http://3.12.228.201",
+    serverAddress: "http://3.12.228.201/api/",
   },
 };
 
