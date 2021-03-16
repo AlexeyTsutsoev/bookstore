@@ -14,11 +14,8 @@ export const checkUser = () => {
   return myAxios.get(`${path}me`);
 };
 
-export const uploadAvatar = (data) => {
-  const accessToken = localStorage.getItem("accessToken");
-  console.log("start req");
-  console.log(data);
-  return myAxios.post(`${path}avatar`, data, {
+export const uploadAvatar = (data, user) => {
+  return myAxios.post(`${path}avatar`, data, user, {
     headers: {
       "content-type": "multipart/form-data",
     },
