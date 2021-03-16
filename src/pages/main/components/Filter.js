@@ -49,10 +49,6 @@ const Filter = ({ items, title }) => {
     return showAll ? items : items.slice(0, 6);
   };
 
-  const showInput = () => {
-    return showAll ? <SearchInput /> : "";
-  };
-
   const showText = () => {
     return showAll ? "Скрыть" : "Показать все";
   };
@@ -80,7 +76,6 @@ const Filter = ({ items, title }) => {
     return (
       <FilterContainer>
         <Title title={title} />
-        {showInput()}
         <div>
           {lockItem().map((item) => {
             return (

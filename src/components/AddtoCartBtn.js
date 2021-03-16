@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook, deleteBook } from "../store/actionCreators/cartAction";
 
-//NEED REVIEW
 const AddToCartBtn = ({ book }) => {
   const dispatch = useDispatch();
   const [isInCart, setInCart] = useState(false);
@@ -11,7 +10,7 @@ const AddToCartBtn = ({ book }) => {
   const checkCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     let result = false;
-    if (cart) {
+    if (book) {
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].book.id === book.id) {
           result = true;
@@ -23,7 +22,7 @@ const AddToCartBtn = ({ book }) => {
 
   useEffect(() => {
     checkCart();
-  }, [checkCart]);
+  }, []);
 
   const addtoCart = (book) => {
     dispatch(addBook(book));
