@@ -8,6 +8,11 @@ export const ItemContainer = styled.div`
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
+
+  img {
+    max-width: 300px;
+    max-height: 500px;
+  }
 `;
 
 export const ItemInfo = styled.div`

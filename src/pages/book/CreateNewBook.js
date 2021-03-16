@@ -20,8 +20,11 @@ import {
   getPublishersFromDB,
 } from "../../api/filters";
 import { Form } from "../../components/styles/Header.style";
-import Main from "../main/Main";
-import { Container, InputContainer } from "./styles/CreateNewBook.style";
+import {
+  CreateContainer,
+  InputContainer,
+  MainBookCreate,
+} from "./styles/CreateNewBook.style";
 
 //NEED REVIEW
 
@@ -164,7 +167,6 @@ const CreateNewBook = (props) => {
     await form.append("discription", discription);
     await form.append("cover", cover);
     await form.append("price", price);
-    console.log(form.get("cover"));
 
     let categoryArr = [];
     for (let key in categoriesId) {
@@ -184,9 +186,9 @@ const CreateNewBook = (props) => {
   };
 
   return (
-    <Container>
+    <CreateContainer>
       <h1>Создание книги</h1>
-      <Main>
+      <MainBookCreate>
         <Form onSubmit={submitHandler}>
           <InputContainer>
             <TextField
@@ -281,17 +283,19 @@ const CreateNewBook = (props) => {
               })}
             </FormGroup>
           </FormControl>
-          <Button
-            disabled={!form}
-            type='submit'
-            variant='contained'
-            color='primary'
-          >
-            Создать книгу
-          </Button>
+          <div>
+            <Button
+              disabled={!form}
+              type='submit'
+              variant='contained'
+              color='primary'
+            >
+              Создать книгу
+            </Button>
+          </div>
         </Form>
-      </Main>
-    </Container>
+      </MainBookCreate>
+    </CreateContainer>
   );
 };
 

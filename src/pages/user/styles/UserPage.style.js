@@ -23,6 +23,7 @@ export const Photo = styled.div`
   display: grid;
   img {
     width: 100%;
+    max-width: 300px;
   }
 `;
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const CreateContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Main = styled.main`
+export const MainBookCreate = styled.main`
   margin: 50px;
 `;
 

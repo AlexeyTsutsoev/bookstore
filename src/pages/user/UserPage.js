@@ -36,6 +36,8 @@ const UserPage = () => {
     });
   };
 
+  console.log(user);
+
   return (
     <PageContainer>
       <PageContent>

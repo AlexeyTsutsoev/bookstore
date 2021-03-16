@@ -24,7 +24,7 @@ const BookStore = () => {
       <ProtectedRouter path='/favor' component={Favorites} />
       <ProtectedRouter path='/user/:id' component={UserPage} />
       {user.role === "admin" ? (
-        <Route path='/createBook' component={CreateNewBook} />
+        <Route exact path='/createBook' component={CreateNewBook} />
       ) : (
         <Redirect to='/' />
       )}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FilterItem from "./FilterItem";
-import SearchInput from "../../../components/SearchInput";
 import Title from "../../../components/Title";
 import { Button } from "@material-ui/core";
 import {
