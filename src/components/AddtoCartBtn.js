@@ -10,7 +10,7 @@ const AddToCartBtn = ({ book }) => {
   const checkCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart"));
     let result = false;
-    if (book) {
+    if (cart && book) {
       for (let i = 0; i < cart.length; i++) {
         if (cart[i].book.id === book.id) {
           result = true;
