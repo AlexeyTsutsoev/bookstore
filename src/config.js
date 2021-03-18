@@ -4,7 +4,7 @@ const envType =
 const config = {
   development: {
     currentAddress: "http://localhost:3000",
-    serverAddress: "http://localhost:8080/api/",
+    serverAddress: "http://3.12.228.201/api/",
   },
   production: {
     currentAddress: "http://3.12.228.201",
